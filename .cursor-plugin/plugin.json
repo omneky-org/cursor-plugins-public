@@ -1,0 +1,27 @@
+{
+  "name": "omneky",
+  "displayName": "Omneky",
+  "description": "Generate and launch ads, manage products, and report performance in Cursor via Omneky MCP",
+  "version": "1.0.0",
+  "author": {
+    "name": "Omneky",
+    "email": "support@omneky.com",
+    "url": "https://www.omneky.com"
+  },
+  "homepage": "https://www.omneky.com",
+  "repository": "https://github.com/omneky-org/cursor-plugins-public",
+  "license": "MIT",
+  "keywords": [
+    "omneky",
+    "ads",
+    "mcp",
+    "creative",
+    "analytics",
+    "facebook",
+    "google",
+    "tiktok"
+  ],
+  "category": "integrations",
+  "tags": ["mcp", "ads", "omneky"],
+  "mcpServers": "./mcp.json"
+}
