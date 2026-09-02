@@ -23,5 +23,6 @@ An [Omneky](https://www.omneky.com) account. On first use, Cursor opens Omneky s
 ## Links
 
 - [Website](https://www.omneky.com)
-- [Privacy policy](https://www.omneky.com/privacy)
+- [Privacy policy](https://www.omneky.com/privacy-policy)
+- [Terms](https://www.omneky.com/terms)
 - Support: support@omneky.com
