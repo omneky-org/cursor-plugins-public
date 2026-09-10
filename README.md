@@ -8,7 +8,7 @@ This repository follows the [Cursor plugin template](https://github.com/cursor/p
 
 | Plugin | Folder | What it does |
 | --- | --- | --- |
-| [Omneky](plugins/omneky/) | `plugins/omneky` | Generate and launch ads, manage products, and report performance via Omneky MCP |
+| [Omneky](plugins/omneky/) | `plugins/omneky` | Generate creatives, manage products, launch ads across Meta, Google, LinkedIn, Reddit, and TikTok, and report performance. |
 
 ## Use in Cursor
 

@@ -1,8 +1,10 @@
 # Omneky
 
-Omneky is the MCP connector for performance ads and creatives. Connect your Omneky account in Cursor to generate images and product videos, manage a product catalogue, launch and manage ads on Meta, Google, LinkedIn, Reddit, and TikTok, and report performance — from a single conversation.
+Cursor plugin that connects agents to [Omneky](https://www.omneky.com) through Omneky's hosted [Model Context Protocol](https://modelcontextprotocol.io/) server.
 
-This plugin is a Cursor Marketplace listing only: plugin JSON that points at the hosted Omneky MCP. It does not contain the MCP server source.
+Generate creatives, manage products, launch ads across Meta, Google, LinkedIn, Reddit, and TikTok, and report performance.
+
+This listing points Cursor at the hosted Omneky MCP. It does not contain the MCP server source.
 
 ## What you can do
 

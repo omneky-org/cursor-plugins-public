@@ -5,14 +5,14 @@
     "email": "support@omneky.com"
   },
   "metadata": {
-    "description": "Omneky Cursor Marketplace plugins for performance ads and creatives",
+    "description": "Omneky plugins for performance ads and creatives",
     "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "omneky",
       "source": "./plugins/omneky",
-      "description": "Generate and launch ads, manage products, and report performance in Cursor via Omneky MCP"
+      "description": "Generate creatives, manage products, launch ads across Meta, Google, LinkedIn, Reddit, and TikTok, and report performance."
     }
   ]
 }
