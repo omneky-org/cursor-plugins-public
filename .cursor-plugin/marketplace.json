@@ -1,0 +1,18 @@
+{
+  "name": "omneky",
+  "owner": {
+    "name": "Omneky",
+    "email": "support@omneky.com"
+  },
+  "metadata": {
+    "description": "Omneky Cursor Marketplace plugins for performance ads and creatives",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "omneky",
+      "source": "./plugins/omneky",
+      "description": "Generate and launch ads, manage products, and report performance in Cursor via Omneky MCP"
+    }
+  ]
+}

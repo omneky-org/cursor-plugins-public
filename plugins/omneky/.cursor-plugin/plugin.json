@@ -23,5 +23,6 @@
   ],
   "category": "integrations",
   "tags": ["mcp", "ads", "omneky"],
+  "logo": "assets/logo.svg",
   "mcpServers": "./mcp.json"
 }
