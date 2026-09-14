@@ -1,15 +1,15 @@
 # Omneky
 
-Omneky is the MCP connector for performance ads and creatives. Connect your Omneky account in Cursor to generate images and product videos, manage a product catalogue, launch and manage ads on Meta, Google, LinkedIn, Reddit, and TikTok, and report performance — from a single conversation.
+Omneky connects Cursor to paid media: analyze ROAS/CTR/spend by creative, campaign, or channel; manage your brand product catalogue; generate image ads and product videos; and launch or pause campaigns on Meta/Facebook, Google, LinkedIn, Reddit, and TikTok — from one conversation. New launches stay paused unless you ask to go live.
 
 This plugin is a Cursor Marketplace listing only: plugin JSON that points at the hosted Omneky MCP. It does not contain the MCP server source.
 
 ## What you can do
 
-- **Analytics**: brand and account context, daily metrics, and trending performance.
-- **Products**: list, inspect, create, and upsert catalogue items, including URL scrape.
-- **Ad launch**: Facebook, Google, LinkedIn, Reddit, and TikTok campaigns. New launches default to paused unless you ask to go live.
-- **Creative**: generate image ads and product videos; poll generation status.
+- **Analytics**: brand and account context, daily metrics, ranked ROAS/CTR/spend breakdowns, and trending movers (`roas-breakdown` skill).
+- **Products**: list, inspect, create, and upsert catalogue items, including URL scrape (`product-catalogue` skill).
+- **Ad launch**: Facebook/Meta, Google (PMax + Demand Gen), LinkedIn, Reddit, and TikTok campaigns. New launches default to paused unless you ask to go live (`launch-meta-ads`, `launch-google-tiktok-ads` skills).
+- **Creative**: generate image ads and product videos; poll generation status (`creative-generation` skill).
 - **Image edit**: edit and resize existing creatives.
 
 ## Install

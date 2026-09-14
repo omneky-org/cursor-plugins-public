@@ -8,7 +8,7 @@ This repository follows the [Cursor plugin template](https://github.com/cursor/p
 
 | Plugin | Folder | What it does |
 | --- | --- | --- |
-| [Omneky](plugins/omneky/) | `plugins/omneky` | Generate and launch ads, manage products, and report performance via Omneky MCP |
+| [Omneky](plugins/omneky/) | `plugins/omneky` | Paid-media MCP for Meta, Google, TikTok, LinkedIn & Reddit — launch campaigns, generate creatives, manage brand catalogue, report ROAS/CTR |
 
 ## Use in Cursor
 
@@ -25,6 +25,7 @@ You need an [Omneky](https://www.omneky.com) account. Support: support@omneky.co
 plugins/omneky/                   # The Omneky Cursor plugin
   .cursor-plugin/plugin.json      # Plugin identity and mcp.json pin
   mcp.json                        # Hosted HTTP MCP: https://mcp.omneky.com/mcp
+  skills/*/SKILL.md               # High-ROI paid-media skills
   assets/logo.svg
   README.md
 docs/add-a-plugin.md              # How to add another plugin later
