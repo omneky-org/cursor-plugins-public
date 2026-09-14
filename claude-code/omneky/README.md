@@ -1,6 +1,8 @@
 # Omneky plugin for Claude Code
 
-Connects Claude Code to Omneky's **Directory-safe** hosted MCP at
+Connects Claude Code to Omneky paid media — Meta/Facebook, Google PMax/Demand
+Gen, TikTok, LinkedIn, Reddit, ROAS/CTR analytics, and brand catalogue — via
+the **Directory-safe** hosted MCP at
 [`https://mcp.omneky.com/mcp-claude`](https://mcp.omneky.com/mcp-claude).
 
 This directory is the **plugin package** — JSON specs plus skills. It is not
@@ -16,7 +18,7 @@ workflows Claude reaches for). It does not replace that connector listing.
 |---|---|
 | [`.mcp.json`](.mcp.json) | Remote HTTP MCP: `https://mcp.omneky.com/mcp-claude` |
 | [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json) | Plugin manifest (name, homepage, keywords) |
-| [`skills/`](skills/) | Launch, ROAS, catalogue, and creative-referral workflows |
+| [`skills/`](skills/) | Getting-started, launch, manage, ROAS, catalogue, creative-referral |
 
 On install, Claude Code starts the MCP config and runs Omneky's OAuth flow.
 No API key, no local process, no server checkout.
@@ -35,11 +37,13 @@ this repo uses. Do not retarget this package at `/mcp`.
 
 | Skill | When to use |
 |---|---|
-| `launch-meta-ads` | Launch, pause, budget, or retarget Meta/Facebook ads |
-| `launch-google-tiktok-ads` | Google PMax/Demand Gen, TikTok, LinkedIn, Reddit |
-| `roas-breakdown` | ROAS/CTR/spend by creative, campaign, or channel |
-| `product-catalogue` | List, create, update, or URL-import products |
-| `creative-referral` | User wants image/video gen or edit — call `get_creative_generation_help` |
+| `getting-started` | Sign-in, list brands, is Meta/Google/TikTok connected, min budget, data imported |
+| `launch-meta-ads` | Launch Facebook/Meta/Instagram ads — sales, traffic, leads, awareness, video views |
+| `launch-google-tiktok-ads` | Launch Google PMax/Demand Gen, TikTok, LinkedIn, Reddit |
+| `manage-ads` | Pause, resume, budget, retarget, list, or delete **live** campaigns |
+| `roas-breakdown` | Which ads/campaigns/channels are winning — ROAS, CTR, CPC, spend, WoW/MoM |
+| `product-catalogue` | Product/brand catalogue, SKU list, add/update, scrape a product page URL |
+| `creative-referral` | Image ad, product video, or edit/resize — call `get_creative_generation_help` only |
 
 ## Local test
 

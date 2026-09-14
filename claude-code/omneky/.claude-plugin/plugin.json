@@ -1,8 +1,8 @@
 {
   "name": "omneky",
   "displayName": "Omneky",
-  "description": "Paid-media MCP for Meta, Google, TikTok, LinkedIn & Reddit — launch campaigns, manage brand catalogue, report ROAS/CTR.",
-  "version": "1.0.0",
+  "description": "Paid-media MCP for Meta/Facebook, Google PMax/Demand Gen, TikTok, LinkedIn & Reddit — launch campaigns, manage brand catalogue, report ROAS/CTR.",
+  "version": "1.0.1",
   "author": {
     "name": "Omneky",
     "email": "support@omneky.com",
@@ -23,6 +23,10 @@
     "reddit ads",
     "roas",
     "ctr",
+    "cpc",
+    "pmax",
+    "demand gen",
+    "instagram ads",
     "campaigns",
     "brand catalogue",
     "product catalogue",
