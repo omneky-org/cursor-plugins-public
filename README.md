@@ -1,14 +1,18 @@
-# Omneky Cursor plugins
+# Omneky agent plugins
 
-Public Cursor Marketplace listing for Omneky. Installing the **Omneky** plugin points Cursor at the hosted MCP (`https://mcp.omneky.com/mcp`) and uses OAuth to link your workspace.
+Public listings for Omneky on **Cursor Marketplace** and **Claude Code**. Neither package contains MCP server source.
 
-This repository follows the [Cursor plugin template](https://github.com/cursor/plugin-template) multi-plugin layout. It does not contain MCP server source.
+- **Cursor**: installing the Omneky plugin points Cursor at the full hosted MCP (`https://mcp.omneky.com/mcp`) and uses OAuth to link your workspace.
+- **Claude Code**: the sibling plugin points at the Directory-safe MCP (`https://mcp.omneky.com/mcp-claude`) — launch, catalogue, and analytics skills, with creative generation referred via `get_creative_generation_help`. The [Connectors Directory](https://claude.ai/directory/omneky) listing is separate and already live.
+
+The Cursor side follows the [Cursor plugin template](https://github.com/cursor/plugin-template) multi-plugin layout.
 
 ## Plugins
 
-| Plugin | Folder | What it does |
-| --- | --- | --- |
-| [Omneky](plugins/omneky/) | `plugins/omneky` | Paid-media MCP for Meta, Google, TikTok, LinkedIn & Reddit — launch campaigns, generate creatives, manage brand catalogue, report ROAS/CTR |
+| Plugin | Folder | Host | What it does |
+| --- | --- | --- | --- |
+| [Omneky (Cursor)](plugins/omneky/) | `plugins/omneky` | Cursor | Full paid-media MCP — Meta, Google, TikTok, LinkedIn, Reddit; launch, creatives, catalogue, ROAS/CTR |
+| [Omneky (Claude Code)](claude-code/omneky/) | `claude-code/omneky` | Claude Code | Directory-safe MCP — same launch/catalogue/analytics skills; creative-referral only |
 
 ## Use in Cursor
 
@@ -21,15 +25,20 @@ You need an [Omneky](https://www.omneky.com) account. Support: support@omneky.co
 ## Repository layout
 
 ```text
-.cursor-plugin/marketplace.json   # Marketplace manifest (lists plugins)
-plugins/omneky/                   # The Omneky Cursor plugin
-  .cursor-plugin/plugin.json      # Plugin identity and mcp.json pin
-  mcp.json                        # Hosted HTTP MCP: https://mcp.omneky.com/mcp
-  skills/*/SKILL.md               # High-ROI paid-media skills
+.cursor-plugin/marketplace.json   # Cursor Marketplace manifest
+plugins/omneky/                   # Cursor plugin (full MCP)
+  .cursor-plugin/plugin.json
+  mcp.json                        # https://mcp.omneky.com/mcp
+  skills/*/SKILL.md
   assets/logo.svg
   README.md
-docs/add-a-plugin.md              # How to add another plugin later
-scripts/validate-template.mjs     # Template packaging checks
+claude-code/omneky/               # Claude Code plugin (Directory-safe MCP)
+  .claude-plugin/plugin.json
+  .mcp.json                       # https://mcp.omneky.com/mcp-claude
+  skills/*/SKILL.md
+  README.md
+docs/add-a-plugin.md              # How to add another Cursor plugin later
+scripts/validate-template.mjs     # Cursor template packaging checks
 ```
 
 The plugin folder is the installable unit. Cursor discovers MCP from `plugins/omneky/mcp.json` (also pinned as `mcpServers` in the plugin manifest). Auth stays OAuth DCR — no client id or API key is stored here.
@@ -44,6 +53,16 @@ cp -R plugins/omneky ~/.cursor/plugins/local/omneky
 ```
 
 Reload the Cursor window, then confirm the Omneky MCP server appears in Customize. For the official steps, see [Test plugins locally](https://cursor.com/docs/plugins.md#test-plugins-locally).
+
+## Claude Code
+
+Local test (this is the skills plugin, not the Connectors Directory listing):
+
+```bash
+claude --plugin-dir ./claude-code/omneky
+```
+
+Public distribution: submit via [platform.claude.com/plugins/submit](https://platform.claude.com/plugins/submit) or the claude.ai Team/Enterprise plugin form. Approved plugins appear in `claude-community`. See [`claude-code/omneky/README.md`](claude-code/omneky/README.md).
 
 ## Validate
 
