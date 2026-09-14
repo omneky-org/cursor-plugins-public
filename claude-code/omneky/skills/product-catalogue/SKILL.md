@@ -5,7 +5,7 @@ description: List, create, update, or URL-import products in an Omneky brand cat
 
 # Brand / product catalogue
 
-Writes mutate the signed-in brand's catalogue via `https://mcp.omneky.com/mcp-claude`. Confirm fields with the user before create/update/finalize. There is **no product-delete tool** on this connector.
+Writes mutate the signed-in brand's catalogue on `https://mcp.omneky.com/mcp-claude`. Auth is the client's OAuth flow; never ask for a token. Confirm fields with the user before create/update/finalize. There is **no product-delete tool** on this connector.
 
 ## Resolve brand
 
@@ -14,7 +14,7 @@ If `brand_id` is unknown, call `list_brands` and confirm. Prefer a **numeric** `
 ## Read
 
 - List completed products: `list_brand_products(brand_id)`. Returns id, name, and thumbnail for the first 10; later rows may have `thumbnail_url=null` until you fetch details (that does **not** mean no image). Only `status="completed"` rows appear.
-- Full record (description, benefits, audience, media): `fetch_product_details(brand_id, product_id)`.
+- Full record: `fetch_product_details(brand_id, product_id)`.
 
 ## Manual create / update
 
@@ -26,9 +26,9 @@ Do **not** use `upsert_brand_product` to finalize a URL scrape.
 
 ## URL import
 
-1. `identify_product_from_url(url)` — gate listing/category/home pages. If `is_single_product` is `false`, ask for a specific product URL. If `true` or `null`, continue.
-2. `scrape_product_from_url(brand_id, url)` — creates a draft and returns scraped fields + `scraped_image_urls`. Does **not** complete the product.
-3. Confirm name, description, and at least one image with the user (`ask_user` if needed).
+1. `identify_product_from_url(url)` — if `is_single_product` is `false`, ask for a specific product URL. If `true` or `null`, continue.
+2. `scrape_product_from_url(brand_id, url)` — creates a draft (`scraped_image_urls`). Does **not** complete the product.
+3. Confirm name, description, and at least one image (`ask_user` if needed).
 4. `finalize_scraped_product` with `brand_id`, draft `product_id`, `image_urls` (min 1), `product_name`, `product_description`. Zero images is blocked. Return the finalized `product_id` (equals `folder_id`).
 
-Re-import: optionally `update_product_url`, then `scrape_product_from_url` again (new draft) and `finalize_scraped_product`.
+Re-import: optionally `update_product_url`, then scrape again (new draft) and finalize.

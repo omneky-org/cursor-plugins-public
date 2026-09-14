@@ -41,7 +41,7 @@ docs/add-a-plugin.md              # How to add another Cursor plugin later
 scripts/validate-template.mjs     # Cursor template packaging checks
 ```
 
-The plugin folder is the installable unit. Cursor discovers MCP from `plugins/omneky/mcp.json` (also pinned as `mcpServers` in the plugin manifest). Auth stays OAuth DCR — no client id or API key is stored here.
+Each host's plugin folder is the installable unit. Cursor discovers MCP from `plugins/omneky/mcp.json`; Claude Code discovers MCP from `claude-code/omneky/.mcp.json`. Auth stays OAuth DCR — no client id or API key is stored here.
 
 ## Local testing
 
@@ -70,11 +70,12 @@ Public distribution: submit via [platform.claude.com/plugins/submit](https://pla
 node scripts/validate-template.mjs
 ```
 
-To add another plugin under `plugins/`, see [`docs/add-a-plugin.md`](docs/add-a-plugin.md).
+Cursor-only. To add another plugin under `plugins/`, see [`docs/add-a-plugin.md`](docs/add-a-plugin.md). For the Claude Code package, run `claude plugin validate ./claude-code/omneky` when the Claude CLI is available.
 
 ## Publish
 
-Submit this repository at [cursor.com/marketplace/publish](https://cursor.com/marketplace/publish). This listing is separate from any xAI Grok Build catalog entry.
+- **Cursor**: submit this repository at [cursor.com/marketplace/publish](https://cursor.com/marketplace/publish). After merge, ask marketplace-publishing@cursor.com to re-index.
+- **Claude Code**: submit `claude-code/omneky` at [platform.claude.com/plugins/submit](https://platform.claude.com/plugins/submit) (or the claude.ai Team/Enterprise form). This is separate from the Connectors Directory listing.
 
 ## Links
 

@@ -1,76 +1,71 @@
-# Omneky for Claude Code
+# Omneky plugin for Claude Code
 
-Omneky connects Claude Code to paid media: analyze ROAS/CTR/spend by creative, campaign, or channel; manage your brand product catalogue; and launch or pause campaigns on Meta/Facebook, Google, LinkedIn, Reddit, and TikTok — from one conversation. New launches stay paused unless you ask to go live.
+Connects Claude Code to Omneky's **Directory-safe** hosted MCP at
+[`https://mcp.omneky.com/mcp-claude`](https://mcp.omneky.com/mcp-claude).
 
-This plugin points Claude Code at the **Directory-safe** hosted MCP (`https://mcp.omneky.com/mcp-claude`). That surface does **not** include AI creative generation or image edit tools. For image ads, product videos, `edit_image`, or `resize_ad`, use `get_creative_generation_help` (see the `creative-referral` skill) or the full connector at `https://mcp.omneky.com/mcp` (the Cursor plugin in this repo).
+This directory is the **plugin package** — JSON specs plus skills. It is not
+the MCP server and contains no server source.
 
-This package is a Claude Code plugin only: `.claude-plugin/plugin.json`, `.mcp.json`, and skills. It does not contain MCP server source.
+**The [Claude Connectors Directory](https://claude.ai/directory/omneky) listing
+is separate and already live.** This plugin is for **Claude Code skills** (the
+workflows Claude reaches for). It does not replace that connector listing.
 
-The [Claude Connectors Directory](https://claude.ai/directory/omneky) listing is **separate** and already published. This plugin is the **skills path** for Claude Code — it does not replace that connector listing.
+## What Claude Code installs
 
-## What you can do
+| File | Role |
+|---|---|
+| [`.mcp.json`](.mcp.json) | Remote HTTP MCP: `https://mcp.omneky.com/mcp-claude` |
+| [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json) | Plugin manifest (name, homepage, keywords) |
+| [`skills/`](skills/) | Launch, ROAS, catalogue, and creative-referral workflows |
 
-- **Analytics**: brand context, daily metrics, ranked ROAS/CTR/spend breakdowns, and trending movers (`roas-breakdown`).
-- **Products**: list, inspect, create, upsert, and URL-import catalogue items (`product-catalogue`).
-- **Ad launch**: Facebook/Meta, Google (PMax + Demand Gen), LinkedIn, Reddit, and TikTok. New launches stay paused unless you ask to go live (`launch-meta-ads`, `launch-google-tiktok-ads`).
-- **Creative**: this Directory surface has no generate/edit tools. Call `get_creative_generation_help` (`creative-referral`).
+On install, Claude Code starts the MCP config and runs Omneky's OAuth flow.
+No API key, no local process, no server checkout.
+
+## Authentication
+
+The plugin calls only `https://mcp.omneky.com/mcp-claude`. Sign in with an
+Omneky account in the browser. Never paste a JWT or API key into chat.
+
+`/mcp-claude` is the trimmed Directory surface: analytics, product catalogue,
+and ad launch — **no** AI image/video generation or image edit/resize. The
+full connector at `https://mcp.omneky.com/mcp` is what the Cursor plugin in
+this repo uses. Do not retarget this package at `/mcp`.
+
+## Skills
+
+| Skill | When to use |
+|---|---|
+| `launch-meta-ads` | Launch, pause, budget, or retarget Meta/Facebook ads |
+| `launch-google-tiktok-ads` | Google PMax/Demand Gen, TikTok, LinkedIn, Reddit |
+| `roas-breakdown` | ROAS/CTR/spend by creative, campaign, or channel |
+| `product-catalogue` | List, create, update, or URL-import products |
+| `creative-referral` | User wants image/video gen or edit — call `get_creative_generation_help` |
 
 ## Local test
 
-From this repository:
+From this public repository:
 
 ```bash
 claude --plugin-dir ./claude-code/omneky
 ```
 
-On first use, complete Omneky OAuth when Claude Code prompts. Confirm the `omneky` MCP server is connected, then ask to list brands, report ROAS, or launch a paused campaign.
+## Submit (after merge)
 
-You can also load the folder from an absolute path:
+After this lands on `main`, submit **this public GitHub repo / plugin path**
+at [platform.claude.com/plugins/submit](https://platform.claude.com/plugins/submit)
+(or the claude.ai Team/Enterprise plugin form). Anthropic needs a public URL;
+do not submit `omneky-org/public-mcp` (private; contains the server).
 
-```bash
-claude --plugin-dir /path/to/cursor-plugins-public/claude-code/omneky
-```
+Approved plugins appear in `claude-community`. Run
+`claude plugin validate ./claude-code/omneky` before submitting.
 
-## Public distribution
-
-This plugin is **not** the Connectors Directory listing (already live). Submit the **plugin** (skills + `/mcp-claude`) for Claude Code / Cowork via:
-
-- Console: [platform.claude.com/plugins/submit](https://platform.claude.com/plugins/submit)
-- claude.ai Team/Enterprise directory: [claude.ai/admin-settings/directory/submissions/plugins/new](https://claude.ai/admin-settings/directory/submissions/plugins/new)
-
-Approved third-party plugins land in the `claude-community` marketplace:
-
-```text
-/plugin marketplace add anthropics/claude-plugins-community
-/plugin install omneky@claude-community
-```
-
-Run `claude plugin validate ./claude-code/omneky` before submitting.
-
-## MCP
-
-Claude Code discovers the hosted server from [`.mcp.json`](./.mcp.json):
-
-- Name: `omneky`
-- Transport: HTTP
-- URL: `https://mcp.omneky.com/mcp-claude`
-
-Auth is OAuth (same pattern as the Cursor plugin). There is no static client id and no API key in this repo.
-
-The full connector (`https://mcp.omneky.com/mcp`) is what the Cursor plugin uses. It includes `generate_image_ad`, `generate_product_video`, `edit_image`, `resize_ad`, and `get_generation_status`. Do not point this Claude Code plugin at that URL — Directory policy keeps creative gen/edit off `/mcp-claude`.
+Connectors Directory submit is **not** this step — that listing is already live.
 
 ## Safety
 
-Every action runs under the Omneky account you sign in with. New ad launches stay **paused** unless you explicitly ask to go live.
+New ad launches stay **paused** unless the user explicitly asks to go live.
 
-## Requirements
+## License
 
-An [Omneky](https://www.omneky.com) account and Claude Code.
-
-## Links
-
-- [Website](https://www.omneky.com)
-- [Connectors Directory](https://claude.ai/directory/omneky) (MCP connector — already listed)
-- [Privacy policy](https://www.omneky.com/privacy-policy)
-- [Terms](https://www.omneky.com/terms)
-- Support: support@omneky.com
+MIT in this repo. Use of the hosted MCP is governed by
+[Omneky's terms](https://www.omneky.com/terms).

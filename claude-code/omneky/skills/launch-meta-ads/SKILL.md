@@ -1,19 +1,19 @@
 ---
 name: launch-meta-ads
-description: Launch, pause, budget, and retarget Meta/Facebook ads (sales, traffic, leads, awareness, video views). Use this when the user wants Facebook ads, Meta ads, Instagram ads, pause a Meta campaign, change a Meta budget, or update Meta targeting.
+description: Launch and manage Omneky Meta/Facebook ads (sales, traffic, leads, awareness, video views). Use this when the user wants Facebook ads, Meta ads, Instagram ads, pause a Meta campaign, change a Meta budget, or update Meta targeting.
 ---
 
 # Launch Meta / Facebook ads
 
-This Claude Code plugin uses the Directory-safe Omneky MCP at `https://mcp.omneky.com/mcp-claude`. Confirm brand, objective, budget, targeting, copy, CTA, and landing URL with `ask_user` before any write. Default every new launch to **paused** unless the user explicitly asks to go live.
+Use Omneky MCP tools on `https://mcp.omneky.com/mcp-claude`. Sign-in is the client's OAuth flow. Never ask the user to paste a JWT or API key. Confirm brand, objective, budget, targeting, copy, CTA, and landing URL with `ask_user` before any write. Default every new launch to **paused** unless the user explicitly asks to go live.
 
-## Resolve brand and connection
+## Launch sequence
 
-1. If `brand_id` is unknown, call `list_brands`, then confirm the brand. Call `get_brand_details` when you need logo, colors, copy, or `company_id`.
-2. Call `get_channel_connection_status` with `channel="facebook"`. Stop and tell the user if Meta is not connected.
-3. Call `get_channel_budget` with `channels="facebook"` and `minimum_budget_for_objective` (channel `facebook`, objective matching the launch tool) before setting spend.
-
-## Pick the launch tool
+1. Resolve the brand. If `brand_id` is unknown, call `list_brands` and confirm. Then `get_brand_details` for images, videos, logo, and brand-book copy. Use `list_brand_products` / `fetch_product_details` when the ad is for a specific product.
+2. `get_channel_connection_status` with `channel="facebook"`. Stop if Meta is not connected.
+3. `get_channel_budget` (`channels="facebook"`) and `minimum_budget_for_objective` before setting spend.
+4. Facebook targeting is inline — no pre-call. Use `ad_group_spec.targeting` like `{"countries": ["US"], "age_min": 25, "age_max": 55}`. Countries are ISO codes. For interests/behaviors only, `targeting_search(channel="facebook", types=["interests"]|["behaviors"])`. Never pass `geo_locations` as a search type.
+5. Call the matching launch tool.
 
 | User intent | Tool | Objective |
 | --- | --- | --- |
@@ -23,26 +23,27 @@ This Claude Code plugin uses the Directory-safe Omneky MCP at `https://mcp.omnek
 | Brand awareness / reach | `launch_facebook_awareness_ad` | `OUTCOME_AWARENESS` |
 | Video views / ThruPlay | `launch_facebook_video_views_ad` | `OUTCOME_VIDEO_VIEWS` |
 
-Hierarchy is Campaign → Ad Set (`ad_group`) → Ad. Creative lives on the ad (`ad_specs`), never on the campaign.
+Hierarchy is Campaign → Ad Set (`ad_group`) → Ad. Creative lives on the ad (`ad_specs`).
 
-- New campaign + ad set + ads: pass `name` on `campaign_spec` and `name` + `daily_budget` on `ad_group_spec`.
-- Add an ad set under an existing campaign: `campaign_spec={"id": "<campaign_id>"}`.
-- Add ads to an existing ad set: also pass `ad_group_spec={"id": "<ad_set_id>"}` and set `adset_id` on each `ad_spec`.
+- New campaign + ad set + ads: `name` on `campaign_spec`; `name` + `daily_budget` on `ad_group_spec`.
+- Existing campaign: `campaign_spec={"id": "<campaign_id>"}`.
+- Existing ad set: also `ad_group_spec={"id": "<ad_set_id>"}` and `adset_id` on each `ad_spec`.
 
-Set `status_on_launch` to `PAUSED` on campaign, ad set, and ads unless the user asked to go live. Facebook tool defaults are not safe to trust for this.
+Set `status_on_launch` to `PAUSED` on campaign, ad set, and ads unless the user asked to go live.
 
-## Targeting
+This Directory surface does **not** expose Omneky-managed Meta/OpenAI launches. Do not invent those names.
 
-Meta takes a targeting dict inline on `ad_group_spec`: `{countries: ["US"], age_min, age_max, ...}`. Countries are ISO codes — do not call `targeting_search` for countries.
+## Manage existing ads
 
-For interests or behaviors, call `targeting_search` with `channel="facebook"` and `types` such as `["interests"]` or `["behaviors"]`. Never pass `geo_locations` as a search type.
+- Inspect: `get_campaigns`, `get_ad_groups`, `get_ads`, `get_channel_budget`, `minimum_budget_for_objective`, `get_channel_connection_status`
+- Mutate: `set_ad_entity_status` (`channel="facebook"`, `level` = `campaign`|`ad_group`|`ad`, `status` = `PAUSED`|`ACTIVE`); `set_ad_budget` (CBO → `level="campaign"`, ABO → `level="ad_group"`); `update_ad_targeting` (Facebook only; **overwrites** the audience)
+- Delete (irreversible — confirm first): `delete_campaign`, `delete_ad_group`, `delete_ads`
+- Persist a chat creative before launch: `register_ad_instance_item`
+- Missing input / `needs_user_decision`: `ask_user`. Never auto-retry a failed launch.
 
-## After launch / manage live entities
+## Gotchas
 
-- Pause or resume: `set_ad_entity_status` (`channel="facebook"`, `level` = `campaign` | `ad_group` | `ad`, `status` = `PAUSED` | `ACTIVE`). Prefer pause over delete. Pausing a campaign or ad set stops everything beneath it.
-- Change daily budget: `set_ad_budget` (`channel="facebook"`). Use `level="campaign"` for CBO, `level="ad_group"` for ABO. If the platform rejects the level, retry the other.
-- Replace ad-set targeting: `update_ad_targeting` (`channel="facebook"`). This **overwrites** the audience — send the full spec you want.
+- Facebook lead ads: set `lead_gen_form_id` on ad specs for native forms.
+- Prefer pause over delete.
 
-If a launch returns `status="needs_user_decision"`, call `ask_user` with the remediations. Never auto-retry a failed launch.
-
-Need a new image or video creative first? This surface has no generate/edit tools — follow the `creative-referral` skill (`get_creative_generation_help`).
+Need a new image or video creative first? This surface has no generate/edit tools — follow `creative-referral` (`get_creative_generation_help`).
