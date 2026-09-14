@@ -1,11 +1,15 @@
 ---
 name: roas-breakdown
-description: Break down paid-media ROAS, CTR, and spend by creative, campaign, or channel, plus day-by-day trends and WoW/MoM movers. Use this when the user asks which ads, campaigns, or channels are winning, losing, or trending.
+description: Use this when the user asks which paid-media ads, campaigns, or channels are winning or losing — ROAS, CTR, CPC, CPA, spend, impressions, conversions, day-by-day trends, WoW/MoM movers, or a creative/campaign/channel leaderboard.
 ---
 
 # ROAS / CTR / spend breakdown
 
 Read-only analytics. Never invent metrics. If results look empty, call `data_available` for the brand before retrying.
+
+## When to use
+
+User phrasing that should load this skill: ROAS, CTR, CPC, CPA, spend, impressions, conversions, which ads/creatives/campaigns/channels are winning or losing, leaderboard, day-by-day chart, WoW/MoM movers, trending, performance report, paid-media analytics.
 
 ## Identity
 

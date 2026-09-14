@@ -1,11 +1,15 @@
 ---
 name: product-catalogue
-description: List, create, update, or URL-import products in an Omneky brand catalogue. Use this when the user wants a product catalogue, brand catalogue, add/update a product, or scrape a product page URL into Omneky.
+description: Use this when the user wants a product catalogue, brand catalogue, SKU list, add or update a product, or scrape/import a product page URL (PDP) into Omneky.
 ---
 
 # Brand / product catalogue
 
 Writes mutate the signed-in brand's catalogue on `https://mcp.omneky.com/mcp-claude`. Auth is the client's OAuth flow; never ask for a token. Confirm fields with the user before create/update/finalize. There is **no product-delete tool** on this connector.
+
+## When to use
+
+User phrasing that should load this skill: product catalogue, brand catalogue, catalog, SKU, list products, add a product, update a product, scrape a product URL, import a PDP, product page URL into Omneky.
 
 ## Resolve brand
 

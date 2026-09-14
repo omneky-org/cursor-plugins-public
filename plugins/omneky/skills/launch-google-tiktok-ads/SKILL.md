@@ -1,11 +1,15 @@
 ---
 name: launch-google-tiktok-ads
-description: Launch Google Performance Max or Demand Gen, plus TikTok, LinkedIn, and Reddit ads. Use this when the user wants Google ads, PMax, Demand Gen, TikTok ads, LinkedIn ads, or Reddit ads — including pause/budget after launch.
+description: Use this when the user wants Google ads, Performance Max, PMax, Demand Gen, YouTube, Discover, TikTok ads, LinkedIn ads, or Reddit ads — including conversions, traffic, leads, video views, awareness, website visits, engagement, pause, or budget after launch on those paid-media channels.
 ---
 
 # Launch Google, TikTok, LinkedIn, and Reddit ads
 
 Use Omneky MCP tools. Confirm brand, channel, objective, budget, targeting, copy, CTA, and landing URL with `ask_user` before any write. Default new launches to **paused** / disabled unless the user explicitly asks to go live.
+
+## When to use
+
+User phrasing that should load this skill: Google ads, Performance Max / PMax, Demand Gen, YouTube / Discover / Gmail placements, TikTok ads (conversions, traffic, leads, video views), LinkedIn ads (awareness, website visits, conversions, engagement), Reddit ads (awareness, traffic, conversions, leads, video views), pause or change budget after launch on those channels. Not Meta/Facebook — that is `launch-meta-ads`.
 
 ## Shared prep
 

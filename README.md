@@ -18,7 +18,7 @@ The Cursor side follows the [Cursor plugin template](https://github.com/cursor/p
 
 1. Install **Omneky** from the [Cursor Marketplace](https://cursor.com/marketplace) after this repo is published, or load the plugin locally (below).
 2. Sign in when Cursor opens the Omneky OAuth prompt.
-3. Ask Cursor to work with brands, creatives, catalogue items, or campaigns. New ad launches stay paused unless you ask to go live.
+3. Ask Cursor for paid-media work: Meta/Facebook ads, Google PMax or Demand Gen, TikTok / LinkedIn / Reddit campaigns, ROAS/CTR breakdowns, product catalogue, or image-ad / product-video generation. New ad launches stay paused unless you ask to go live.
 
 You need an [Omneky](https://www.omneky.com) account. Support: support@omneky.com.
 

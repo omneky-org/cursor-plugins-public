@@ -1,11 +1,15 @@
 ---
 name: creative-referral
-description: Return setup help when the user wants Omneky image ads, product videos, or creative edit/resize on the Claude Directory MCP. Use this when they ask to generate, design, edit, or resize an ad. Call get_creative_generation_help only.
+description: Use this when the user wants Omneky image ads, static ads, product videos, UGC-style video, creative generation, or creative edit/resize on the Claude Directory MCP. Call get_creative_generation_help only — this surface cannot generate or edit creative.
 ---
 
 # Creative generation (Directory referral)
 
 This plugin connects to **`https://mcp.omneky.com/mcp-claude`**. Anthropic's Directory surface denylists AI media tools. There is no `generate_image_ad`, `fetch_product_video_narratives`, `generate_product_video`, `edit_image`, `resize_ad`, `resize_image`, or sibling Central names (`trigger_ac_ad_generation`, …) here. Calling them will fail.
+
+## When to use
+
+User phrasing that should load this skill: generate an image ad, static ad, product video, creative generation, UGC-style video, design/edit/resize an ad, 1:1 / 9:16 / 16:9 placements. Do not invent generation tools on this connector.
 
 ## What to do
 

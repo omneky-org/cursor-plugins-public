@@ -1,11 +1,15 @@
 ---
 name: creative-generation
-description: Generate image ads and product videos, then edit or resize creatives and check job status. Use this when the user wants an image ad, product video, creative generation, edit an ad, resize an ad, or check generation status.
+description: Use this when the user wants an image ad, static ad, product video, creative generation, UGC-style video, edit an ad, resize an ad for 1:1 / 9:16 / 16:9 placements, or check generation job status.
 ---
 
 # Creative generation
 
 Writes spend credits. Confirm intent before calling. Image ads cost **5 credits** on submit; product videos cost **30 credits**. If a tool returns `credit_insufficient`, tell the user and do not retry until they top up.
+
+## When to use
+
+User phrasing that should load this skill: generate an image ad, static ad, product video, creative generation, UGC-style video, edit an existing ad, resize for 1:1 / 4:5 / 9:16 / 16:9 placements, check generation status / job_id. Ground product-specific briefs in the catalogue first (`product-catalogue`).
 
 ## Resolve brand / product
 

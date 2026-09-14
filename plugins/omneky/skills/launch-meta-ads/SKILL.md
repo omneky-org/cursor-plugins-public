@@ -1,11 +1,15 @@
 ---
 name: launch-meta-ads
-description: Launch, pause, budget, and retarget Meta/Facebook ads (sales, traffic, leads, awareness, video views). Use this when the user wants Facebook ads, Meta ads, Instagram ads, pause a Meta campaign, change a Meta budget, or update Meta targeting.
+description: Use this when the user wants Facebook ads, Meta ads, Instagram ads, or to launch, pause, resume, budget, or retarget a Meta/Facebook paid-media campaign — sales, conversions, ROAS, traffic, clicks, lead gen, forms, brand awareness, reach, video views, or ThruPlay. Also use when attaching creatives to an existing Meta campaign or ad set.
 ---
 
 # Launch Meta / Facebook ads
 
 Use Omneky MCP tools. Confirm brand, objective, budget, targeting, copy, CTA, and landing URL with `ask_user` before any write. Default every new launch to **paused** unless the user explicitly asks to go live.
+
+## When to use
+
+User phrasing that should load this skill: Facebook ads, Meta ads, Instagram ads, launch a Meta campaign, pause/resume a Facebook ad set, change a Meta budget (CBO/ABO), update targeting/interests/behaviors, sales/conversions/ROAS, traffic/clicks, lead gen forms, brand awareness/reach, video views/ThruPlay, attach a creative to an existing Meta campaign.
 
 ## Resolve brand and connection
 
