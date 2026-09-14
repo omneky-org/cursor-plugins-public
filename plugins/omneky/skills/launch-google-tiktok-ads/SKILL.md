@@ -5,7 +5,7 @@ description: Use this when the user wants to launch Google ads, Performance Max,
 
 # Launch Google, TikTok, LinkedIn, and Reddit ads
 
-Use Omneky MCP tools. Confirm brand, channel, objective, budget, targeting, copy, CTA, and landing URL with `ask_user` before any write. Default new launches to **paused** / disabled unless the user explicitly asks to go live.
+Use Omneky MCP tools. Confirm brand, channel, objective, budget, targeting, copy, CTA, and landing URL with `request_user_decision` (alias `ask_user`) before any write. Default new launches to **paused** / disabled unless the user explicitly asks to go live.
 
 ## When to use
 
@@ -28,7 +28,7 @@ User phrasing: Google ads, Performance Max / PMax, Demand Gen, YouTube / Discove
 3. `get_channel_budget` and `minimum_budget_for_objective` before setting spend.
 4. Hierarchy is Campaign → Ad Set / asset group → Ad. Attach to an **existing** campaign or ad set by passing its id. Creative is never attached to a campaign directly.
 
-If a launch returns `status="needs_user_decision"`, call `ask_user`. Never auto-retry a failed launch.
+If a launch returns `status="needs_user_decision"`, call `request_user_decision` (alias `ask_user`). Never auto-retry a failed launch.
 
 ## Tools by channel
 
@@ -43,7 +43,7 @@ Status values are `PAUSED` \| `ENABLED`. Default `status_on_launch` to `PAUSED` 
 
 **PMax:** assets live on `ad_group_spec` (headlines 3–15, long headlines 1–5, descriptions 2–5, landscape + square images, logos, `link_url`). Pass `ad_specs` as `[]`. Existing campaign: `campaign_spec={"campaign_id": "<id>"}`. Existing asset group: also set `ad_group_id`.
 
-**Demand Gen:** geo via `google_country_search` → pass results as `ad_group_spec.targeting_fragments`. Existing campaign: `campaign_spec={"campaign_id": "<id>"}` and `ad_group_spec={"ad_group_id": "<id>"}`; set `ad_group_id` on each `ad_spec`. Headlines ≤ 40 chars, descriptions ≤ 90; `business_name` and `logo_image_url` required.
+**Demand Gen:** geo via `search_google_countries` (alias `google_country_search`) → pass results as `ad_group_spec.targeting_fragments`. Existing campaign: `campaign_spec={"campaign_id": "<id>"}` and `ad_group_spec={"ad_group_id": "<id>"}`; set `ad_group_id` on each `ad_spec`. Headlines ≤ 40 chars, descriptions ≤ 90; `business_name` and `logo_image_url` required.
 
 ### TikTok
 
@@ -65,7 +65,7 @@ Status values are `PAUSED` \| `ENABLED`. Default `status_on_launch` to `PAUSED` 
 | Engagement | `launch_linkedin_engagement_ad` |
 | Website visits | `launch_linkedin_website_visits_ad` |
 
-Locations are required: `targeting_search(channel="linkedin", types=["locations"], query=...)`. Build `ad_group_spec.targeting_criteria` from the returned URNs (AND-of-ORs). Hierarchy is Campaign Group (`campaign_spec`) → Campaign (`ad_group_spec`) → Creative (`ad_specs`). Default `status_on_launch` to `PAUSED`.
+Locations are required: `search_ad_targeting` (alias `targeting_search`) (`channel="linkedin"`, `types=["locations"]`, `query=...`). Build `ad_group_spec.targeting_criteria` from the returned URNs (AND-of-ORs). Hierarchy is Campaign Group (`campaign_spec`) → Campaign (`ad_group_spec`) → Creative (`ad_specs`). Default `status_on_launch` to `PAUSED`.
 
 ### Reddit
 
@@ -79,4 +79,4 @@ Locations are required: `targeting_search(channel="linkedin", types=["locations"
 
 Targeting is inline: `geolocations` (ISO), `communities` (no `r/` prefix), interests, keywords, `age_ranges`. Ad-group daily budget minimum is $5. Default `configured_status` to `PAUSED`.
 
-After launch, budget/status writes belong in `manage-ads` (`set_ad_budget` for Google campaign-level; `set_ad_entity_status` is Facebook-only on this connector).
+After launch, budget/status writes belong in `manage-ads` (`set_ad_budget` for Google campaign-level; `set_ad_status` (alias `set_ad_entity_status`) is Facebook-only on this connector).

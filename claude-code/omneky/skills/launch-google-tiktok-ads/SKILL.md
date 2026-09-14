@@ -5,7 +5,7 @@ description: Use this when the user wants to launch Google ads, Performance Max,
 
 # Launch Google, TikTok, LinkedIn, and Reddit ads
 
-Use Omneky MCP tools on `https://mcp.omneky.com/mcp-claude`. Sign-in is the client's OAuth flow. Never ask the user to paste a JWT or API key. Confirm brand, channel, objective, budget, targeting, copy, CTA, and landing URL with `ask_user` before any write. Default new launches to **paused** / disabled unless the user explicitly asks to go live.
+Use Omneky MCP tools on `https://mcp.omneky.com/mcp-claude`. Sign-in is the client's OAuth flow. Never ask the user to paste a JWT or API key. Confirm brand, channel, objective, budget, targeting, copy, CTA, and landing URL with `request_user_decision` (alias `ask_user`) before any write. Default new launches to **paused** / disabled unless the user explicitly asks to go live.
 
 Do not skip the targeting pre-call on LinkedIn or TikTok — those APIs return 400 without a location.
 
@@ -21,11 +21,11 @@ User phrasing: Google ads, Performance Max / PMax, Demand Gen, YouTube / Discove
 | Pause, resume, budget, retarget, or delete **live** entities | `manage-ads` |
 | Is Google/TikTok/LinkedIn/Reddit connected | `getting-started` |
 | ROAS / CTR / which ads are winning | `roas-breakdown` |
-| Generate or edit a creative first | `creative-referral` (`get_creative_generation_help`) |
+| Generate or edit a creative first | `creative-referral` (`get_creative_connector_setup`; alias `get_creative_generation_help`) |
 
 ## Shared prep
 
-1. Resolve brand: `list_brands` → confirm → `get_brand_details` if you need identity assets. Use `list_brand_products` / `fetch_product_details` when the ad is for a specific product.
+1. Resolve brand: `list_brands` → confirm → `get_brand_details` if you need identity assets. Use `list_brand_products` / `get_product_details` (alias `fetch_product_details`) when the ad is for a specific product.
 2. `get_channel_connection_status` for that channel (`google` \| `tiktok` \| `linkedin` \| `reddit`). Stop if not connected.
 3. `get_channel_budget` and `minimum_budget_for_objective` before setting spend.
 4. Look up targeting, then call `launch_<channel>_<objective>_ad`.
@@ -33,14 +33,14 @@ User phrasing: Google ads, Performance Max / PMax, Demand Gen, YouTube / Discove
 | Channel | Required pre-call | Notes |
 |---|---|---|
 | Google PMax | none | Set `link_url`; Google places automatically |
-| Google Demand Gen | `google_country_search` | Pass `adset_spec_fragment` values as `targeting_fragments` |
-| LinkedIn | `targeting_search(..., types=["locations"])` | Must include a `urn:li:adTargetingFacet:locations` entry |
+| Google Demand Gen | `search_google_countries` (alias `google_country_search`) | Pass `adset_spec_fragment` values as `targeting_fragments` |
+| LinkedIn | `search_ad_targeting` (alias `targeting_search`) (`..., types=["locations"]`) | Must include a `urn:li:adTargetingFacet:locations` entry |
 | TikTok | `get_tiktok_location_ids` | `location_ids` is required on the ad group |
 | Reddit | none | Inline `targeting`: `{"geolocations": ["US"], "communities": [...]}` |
 
 Hierarchy is Campaign → Ad Set / asset group → Ad. You can attach to an existing campaign or ad set by passing its id. Creative is never attached to a campaign directly.
 
-If a launch returns `status="needs_user_decision"`, call `ask_user`. Never auto-retry a failed launch. This surface does **not** expose Omneky-managed Meta/OpenAI launches — do not invent those names.
+If a launch returns `status="needs_user_decision"`, call `request_user_decision` (alias `ask_user`). Never auto-retry a failed launch. This surface does **not** expose Omneky-managed Meta/OpenAI launches — do not invent those names.
 
 ## Tools by channel
 

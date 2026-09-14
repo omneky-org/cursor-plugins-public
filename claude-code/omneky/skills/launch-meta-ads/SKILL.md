@@ -5,7 +5,7 @@ description: Use this when the user wants to launch or create Facebook ads, Meta
 
 # Launch Meta / Facebook ads
 
-Use Omneky MCP tools on `https://mcp.omneky.com/mcp-claude`. Sign-in is the client's OAuth flow. Never ask the user to paste a JWT or API key. Confirm brand, objective, budget, targeting, copy, CTA, and landing URL with `ask_user` before any write. Default every new launch to **paused** unless the user explicitly asks to go live.
+Use Omneky MCP tools on `https://mcp.omneky.com/mcp-claude`. Sign-in is the client's OAuth flow. Never ask the user to paste a JWT or API key. Confirm brand, objective, budget, targeting, copy, CTA, and landing URL with `request_user_decision` (alias `ask_user`) before any write. Default every new launch to **paused** unless the user explicitly asks to go live.
 
 ## When to use
 
@@ -19,7 +19,7 @@ User phrasing: launch Facebook ads, create a Meta campaign, Instagram ads, sales
 | Is Meta connected / min budget / which brand | `getting-started` |
 | Google PMax, Demand Gen, TikTok, LinkedIn, Reddit | `launch-google-tiktok-ads` |
 | ROAS / CTR / which ads are winning | `roas-breakdown` |
-| Generate or edit a creative first | `creative-referral` (`get_creative_generation_help` only) |
+| Generate or edit a creative first | `creative-referral` (`get_creative_connector_setup` only; alias `get_creative_generation_help`) |
 
 ## Tools
 
@@ -31,7 +31,7 @@ User phrasing: launch Facebook ads, create a Meta campaign, Instagram ads, sales
 | Brand awareness / reach | `launch_facebook_awareness_ad` | `OUTCOME_AWARENESS` |
 | Video views / ThruPlay | `launch_facebook_video_views_ad` | `OUTCOME_VIDEO_VIEWS` |
 
-Prep: `list_brands` → `get_brand_details` (images, videos, logo, brand-book copy) → `list_brand_products` / `fetch_product_details` when product-specific → `get_channel_connection_status(channel="facebook")` → `get_channel_budget` + `minimum_budget_for_objective`. Interests/behaviors: `targeting_search(channel="facebook", types=["interests"]|["behaviors"])`. Never pass `geo_locations` as a search type.
+Prep: `list_brands` → `get_brand_details` (images, videos, logo, brand-book copy) → `list_brand_products` / `get_product_details` (alias `fetch_product_details`) when product-specific → `get_channel_connection_status(channel="facebook")` → `get_channel_budget` + `minimum_budget_for_objective`. Interests/behaviors: `search_ad_targeting` (alias `targeting_search`) (`channel="facebook"`, `types=["interests"]|["behaviors"]`). Never pass `geo_locations` as a search type.
 
 This Directory surface does **not** expose Omneky-managed Meta/OpenAI launches. Do not invent those names.
 
@@ -50,6 +50,6 @@ Set `status_on_launch` to `PAUSED` on campaign, ad set, and ads unless the user 
 
 Facebook lead ads: set `lead_gen_form_id` on ad specs for native forms.
 
-If a launch returns `status="needs_user_decision"`, call `ask_user`. Never auto-retry a failed launch.
+If a launch returns `status="needs_user_decision"`, call `request_user_decision` (alias `ask_user`). Never auto-retry a failed launch.
 
 After launch, pause/budget/targeting/delete belong in `manage-ads`.

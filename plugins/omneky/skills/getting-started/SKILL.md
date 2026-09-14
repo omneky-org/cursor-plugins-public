@@ -28,21 +28,21 @@ User phrasing: get started with Omneky, who am I logged in as, list my brands, p
 | --- | --- |
 | Signed-in `user_id` (never ask the user for it) | `get_current_user` |
 | Brands the user can access | `list_brands` |
-| Confirm a brand id / name | `get_brand` |
+| Confirm a brand id / name | `get_brand_summary` (alias `get_brand`) |
 | Logo, colors, copy, `company_id`, assets | `get_brand_details` |
 | Ad account connected? (`facebook` \| `google` \| `tiktok` \| `linkedin` \| `reddit`) | `get_channel_connection_status` |
 | Current spend / budget on a channel | `get_channel_budget` |
 | Platform minimum before setting spend | `minimum_budget_for_objective` |
-| Has imported performance data (dates / channels) | `data_available` |
-| Missing brand or channel choice | `ask_user` |
+| Has imported performance data (dates / channels) | `check_reporting_data_available` (alias `data_available`) |
+| Missing brand or channel choice | `request_user_decision` (alias `ask_user`) |
 
 ## Sequence
 
 1. `get_current_user` — keep `user_id` for later analytics / creative tools.
-2. `list_brands` — if more than one, confirm with `ask_user`. Do not guess `brand_id`.
-3. `get_brand` / `get_brand_details` only when you need identity assets, not for metrics.
+2. `list_brands` — if more than one, confirm with `request_user_decision` (alias `ask_user`). Do not guess `brand_id`.
+3. `get_brand_summary` (alias `get_brand`) / `get_brand_details` only when you need identity assets, not for metrics.
 4. Pre-launch / "is X connected": `get_channel_connection_status(brand_id, channel)`. Stop and say so if `connected` is false — this skill cannot connect an ad account.
 5. If they asked about spend floors: `get_channel_budget` then `minimum_budget_for_objective` for that channel + objective.
-6. If they asked whether reporting will work: `data_available` before routing to `roas-breakdown`.
+6. If they asked whether reporting will work: `check_reporting_data_available` (alias `data_available`) before routing to `roas-breakdown`.
 
 Then route to the matching skill above. New launches stay **paused** unless the user later asks to go live.

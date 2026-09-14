@@ -5,7 +5,7 @@ description: Use this when the user asks which paid-media ads, campaigns, or cha
 
 # ROAS / CTR / spend breakdown
 
-Read-only analytics. Never invent metrics. If results look empty, call `data_available` for the brand before retrying.
+Read-only analytics. Never invent metrics. If results look empty, call `check_reporting_data_available` (alias `data_available`) for the brand before retrying.
 
 ## When to use
 
@@ -25,11 +25,11 @@ User phrasing: ROAS, CTR, CPC, CPA, spend, impressions, conversions, which ads/c
 
 | Question | Tool |
 | --- | --- |
-| Ranked breakdown / leaderboard by creative, campaign, channel, ad, ad group, or tactic | `get_dimension_summary` |
+| Ranked breakdown / leaderboard by creative, campaign, channel, ad, ad group, or tactic | `get_performance_breakdown` (alias `get_dimension_summary`) |
 | Day-by-day time series / charts (spend, ROAS, CTR) | `get_daily_metrics` |
-| What rose or fell vs the prior window (WoW / MoM movers) | `get_trending` |
-| Turn a human campaign/ad name into a filter value | `search_dimension_values` |
-| Confirm the brand has imported performance data | `data_available` |
+| What rose or fell vs the prior window (WoW / MoM movers) | `get_performance_movers` (alias `get_trending`) |
+| Turn a human campaign/ad name into a filter value | `search_reporting_values` (alias `search_dimension_values`) |
+| Confirm the brand has imported performance data | `check_reporting_data_available` (alias `data_available`) |
 | Signed-in `user_id` | `get_current_user` |
 
 ## Identity
@@ -37,7 +37,7 @@ User phrasing: ROAS, CTR, CPC, CPA, spend, impressions, conversions, which ads/c
 1. Call `get_current_user` for `user_id` — do not ask the user for a numeric user id.
 2. If `brand_id` is unknown, call `list_brands` and confirm the brand. Use `get_brand_details` only when you need brand metadata, not for metrics.
 
-## `get_dimension_summary`
+## `get_performance_breakdown` (alias `get_dimension_summary`)
 
 Required: `user_id`, `date_range` (`["YYYY-MM-DD", "YYYY-MM-DD"]`), `dimension`, `results_per_page`, `sort_metric`, `sort_order`. Pass `brand_id` at the top level. Pass `filters` as `[]` when not filtering — never null, and never add a redundant `{dimension: "brand"}` filter.
 
@@ -47,12 +47,12 @@ Common dimensions: `creative`, `campaign`, `channel`, `ad`, `ad_group`, `creativ
 
 Required: `user_id`, `date_range`. Pass `brand_id` and `filters=[]` when unscoped. Use this for trend lines, not rankings.
 
-## `get_trending`
+## `get_performance_movers` (alias `get_trending`)
 
 Required: `brand_id`, `user_id`, `dimension`, `metric` (e.g. `ROAS`, `CLICK_THROUGH_RATE`, `SPEND`), `end_date`. Optional: `period_days` (default 7), `top_n` (default 10). The prior window is the same length immediately before the current period.
 
 ## Filters
 
-If the user names a campaign, ad, or channel, call `search_dimension_values` (`brand_id`, `dimension`, `q`) first, then pass exact values as `{condition: "includes"|"excludes", dimension, value: [...]}` on `get_dimension_summary` / `get_daily_metrics`.
+If the user names a campaign, ad, or channel, call `search_reporting_values` (alias `search_dimension_values`) (`brand_id`, `dimension`, `q`) first, then pass exact values as `{condition: "includes"|"excludes", dimension, value: [...]}` on `get_performance_breakdown` / `get_daily_metrics`.
 
-Report numbers with the date range and dimension you actually queried. If `data_available` says there is no import yet, say so instead of fabricating a table.
+Report numbers with the date range and dimension you actually queried. If `check_reporting_data_available` (alias `data_available`) says there is no import yet, say so instead of fabricating a table.

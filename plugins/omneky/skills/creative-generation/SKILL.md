@@ -32,14 +32,14 @@ User phrasing: generate an image ad, static ad, product video, creative generati
 | Edit copy/colors/layout on a finished image | `edit_image` |
 | Change aspect ratio of a finished ad | `resize_ad` |
 
-`get_current_user` for `user_id`. `list_brands` / `get_brand_details` for `brand_id`, `company_id`, assets. Product-specific: `list_brand_products` → `fetch_product_details`.
+`get_current_user` for `user_id`. `list_brands` / `get_brand_details` for `brand_id`, `company_id`, assets. Product-specific: `list_brand_products` → `get_product_details` (alias `fetch_product_details`).
 
 ## Resolve brand / product
 
 1. `get_current_user` for `user_id` (needed by `generate_image_ad`).
 2. `list_brands` if `brand_id` is unknown; `get_brand_details` for logo, colors, `company_id`, and brand assets.
 3. Ask whether the creative is for a **specific product** or the **brand in general**.
-   - Product: `list_brand_products` → `fetch_product_details` and ground the brief in that product's name, imagery, and details.
+   - Product: `list_brand_products` → `get_product_details` (alias `fetch_product_details`) and ground the brief in that product's name, imagery, and details.
    - Brand-general: use `get_brand_details` and skip product selection.
 
 ## Image ads — `generate_image_ad`
