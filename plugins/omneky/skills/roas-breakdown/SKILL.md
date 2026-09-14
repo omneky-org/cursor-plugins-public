@@ -9,14 +9,19 @@ Read-only analytics. Never invent metrics. If results look empty, call `data_ava
 
 ## When to use
 
-User phrasing that should load this skill: ROAS, CTR, CPC, CPA, spend, impressions, conversions, which ads/creatives/campaigns/channels are winning or losing, leaderboard, day-by-day chart, WoW/MoM movers, trending, performance report, paid-media analytics.
+User phrasing: ROAS, CTR, CPC, CPA, spend, impressions, conversions, which ads/creatives/campaigns/channels are winning or losing, leaderboard, day-by-day chart, WoW/MoM movers, trending, performance report, paid-media analytics.
 
-## Identity
+## When not to use
 
-1. Call `get_current_user` for `user_id` — do not ask the user for a numeric user id.
-2. If `brand_id` is unknown, call `list_brands` and confirm the brand. Use `get_brand_details` only when you need brand metadata, not for metrics.
+| User wants | Use instead |
+| --- | --- |
+| Launch a new campaign | `launch-meta-ads` or `launch-google-tiktok-ads` |
+| Pause / budget / targeting on live ads | `manage-ads` |
+| List brands / is data imported / is a channel connected | `getting-started` |
+| Product catalogue | `product-catalogue` |
+| Generate a creative | `creative-generation` |
 
-## Which tool
+## Tools
 
 | Question | Tool |
 | --- | --- |
@@ -25,6 +30,12 @@ User phrasing that should load this skill: ROAS, CTR, CPC, CPA, spend, impressio
 | What rose or fell vs the prior window (WoW / MoM movers) | `get_trending` |
 | Turn a human campaign/ad name into a filter value | `search_dimension_values` |
 | Confirm the brand has imported performance data | `data_available` |
+| Signed-in `user_id` | `get_current_user` |
+
+## Identity
+
+1. Call `get_current_user` for `user_id` — do not ask the user for a numeric user id.
+2. If `brand_id` is unknown, call `list_brands` and confirm the brand. Use `get_brand_details` only when you need brand metadata, not for metrics.
 
 ## `get_dimension_summary`
 

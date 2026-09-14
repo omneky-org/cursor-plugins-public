@@ -9,7 +9,30 @@ Writes spend credits. Confirm intent before calling. Image ads cost **5 credits*
 
 ## When to use
 
-User phrasing that should load this skill: generate an image ad, static ad, product video, creative generation, UGC-style video, edit an existing ad, resize for 1:1 / 4:5 / 9:16 / 16:9 placements, check generation status / job_id. Ground product-specific briefs in the catalogue first (`product-catalogue`).
+User phrasing: generate an image ad, static ad, product video, creative generation, UGC-style video, edit an existing ad, resize for 1:1 / 4:5 / 9:16 / 16:9 placements, check generation status / job_id.
+
+## When not to use
+
+| User wants | Use instead |
+| --- | --- |
+| Launch the finished creative | `launch-meta-ads` or `launch-google-tiktok-ads` |
+| Pick / scrape the product first | `product-catalogue` |
+| List brands / company_id only | `getting-started` |
+| ROAS of existing creatives | `roas-breakdown` |
+| Pause or budget a live ad | `manage-ads` |
+
+## Tools
+
+| Intent | Tool |
+| --- | --- |
+| Queue a static image ad | `generate_image_ad` |
+| Narrative options for a product video | `fetch_product_video_narratives` |
+| Queue a multi-scene product video | `generate_product_video` |
+| One-shot status peek | `get_generation_status` |
+| Edit copy/colors/layout on a finished image | `edit_image` |
+| Change aspect ratio of a finished ad | `resize_ad` |
+
+`get_current_user` for `user_id`. `list_brands` / `get_brand_details` for `brand_id`, `company_id`, assets. Product-specific: `list_brand_products` → `fetch_product_details`.
 
 ## Resolve brand / product
 

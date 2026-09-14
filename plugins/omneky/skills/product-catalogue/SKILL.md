@@ -9,7 +9,30 @@ Writes mutate the signed-in brand's catalogue. Confirm fields with the user befo
 
 ## When to use
 
-User phrasing that should load this skill: product catalogue, brand catalogue, catalog, SKU, list products, add a product, update a product, scrape a product URL, import a PDP, product page URL into Omneky.
+User phrasing: product catalogue, brand catalogue, catalog, SKU, list products, add a product, update a product, scrape a product URL, import a PDP, product page URL into Omneky.
+
+## When not to use
+
+| User wants | Use instead |
+| --- | --- |
+| Brand identity only (logo, colors) or list brands | `getting-started` |
+| Generate an ad **from** a product | `creative-generation` (resolve product here first if needed) |
+| Launch ads for a product | `launch-meta-ads` or `launch-google-tiktok-ads` |
+| ROAS by product/creative | `roas-breakdown` |
+| Delete a product | Not available — say so |
+
+## Tools
+
+| Intent | Tool |
+| --- | --- |
+| List completed products | `list_brand_products` |
+| Full record (description, benefits, audience, media) | `fetch_product_details` |
+| Manual create | `create_product` |
+| Update a completed product | `upsert_brand_product` |
+| Change product page URL only | `update_product_url` |
+| Gate listing/category URLs | `identify_product_from_url` |
+| Scrape into a draft | `scrape_product_from_url` |
+| Complete a scrape | `finalize_scraped_product` |
 
 ## Resolve brand
 
@@ -17,8 +40,8 @@ If `brand_id` is unknown, call `list_brands` and confirm. Prefer a **numeric** `
 
 ## Read
 
-- List completed products: `list_brand_products(brand_id)`. Returns id, name, and thumbnail for the first 10; later rows may have `thumbnail_url=null` until you fetch details (that does **not** mean no image). Only `status="completed"` rows appear.
-- Full record (description, benefits, audience, media): `fetch_product_details(brand_id, product_id)`.
+- `list_brand_products(brand_id)` returns id, name, and thumbnail for the first 10; later rows may have `thumbnail_url=null` until you fetch details (that does **not** mean no image). Only `status="completed"` rows appear.
+- Full record: `fetch_product_details(brand_id, product_id)`.
 
 ## Manual create / update
 

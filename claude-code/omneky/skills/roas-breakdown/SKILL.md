@@ -9,15 +9,19 @@ Read-only reporting on `https://mcp.omneky.com/mcp-claude`. Auth is the client's
 
 ## When to use
 
-User phrasing that should load this skill: ROAS, CTR, CPC, CPA, spend, impressions, conversions, which ads/creatives/campaigns/channels are winning or losing, leaderboard, day-by-day chart, WoW/MoM movers, trending, performance report, paid-media analytics.
+User phrasing: ROAS, CTR, CPC, CPA, spend, impressions, conversions, which ads/creatives/campaigns/channels are winning or losing, leaderboard, day-by-day chart, WoW/MoM movers, trending, performance report, paid-media analytics.
 
-## Start here
+## When not to use
 
-1. `get_current_user` — `user_id` for brand-scoped calls. Do not ask the user for a numeric user id.
-2. `list_brands` / `get_brand` / `get_brand_details` — confirm which brand. Do not guess `brand_id`.
-3. `data_available` — confirm the brand has imported data (and which dates/channels) before querying.
+| User wants | Use instead |
+| --- | --- |
+| Launch a new campaign | `launch-meta-ads` or `launch-google-tiktok-ads` |
+| Pause / budget / targeting on live ads | `manage-ads` |
+| List brands / is data imported / is a channel connected | `getting-started` |
+| Product catalogue | `product-catalogue` |
+| Generate a creative | `creative-referral` |
 
-## Choose the tool
+## Tools
 
 | Question | Tool |
 | --- | --- |
@@ -27,6 +31,14 @@ User phrasing that should load this skill: ROAS, CTR, CPC, CPA, spend, impressio
 | Turn a human campaign/ad name into a filter value | `search_dimension_values` |
 | What to try next from historical performance | `get_recommendations` |
 | Current spend per channel | `get_channel_budget` |
+| Confirm imported data | `data_available` |
+| Signed-in `user_id` | `get_current_user` |
+
+## Start here
+
+1. `get_current_user` — `user_id` for brand-scoped calls. Do not ask the user for a numeric user id.
+2. `list_brands` / `get_brand` / `get_brand_details` — confirm which brand. Do not guess `brand_id`.
+3. `data_available` — confirm the brand has imported data (and which dates/channels) before querying.
 
 ## Rules
 

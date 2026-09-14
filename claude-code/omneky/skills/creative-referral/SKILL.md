@@ -9,12 +9,32 @@ This plugin connects to **`https://mcp.omneky.com/mcp-claude`**. Anthropic's Dir
 
 ## When to use
 
-User phrasing that should load this skill: generate an image ad, static ad, product video, creative generation, UGC-style video, design/edit/resize an ad, 1:1 / 9:16 / 16:9 placements. Do not invent generation tools on this connector.
+User phrasing: generate an image ad, static ad, product video, creative generation, UGC-style video, design/edit/resize an ad, 1:1 / 9:16 / 16:9 placements, check generation status.
+
+## When not to use
+
+| User wants | Use instead |
+| --- | --- |
+| Launch an already-made creative | `launch-meta-ads` or `launch-google-tiktok-ads` |
+| Catalogue / scrape a product | `product-catalogue` |
+| ROAS of existing creatives | `roas-breakdown` |
+| Sign-in / list brands | `getting-started` |
+| Pause or budget a live ad | `manage-ads` |
+
+Do not invent generation tools on this connector. Do not produce the creative another way.
+
+## Tools
+
+| Intent | Tool |
+| --- | --- |
+| Setup help + install steps for the full connector | `get_creative_generation_help` (read-only, no credits) |
+
+That is the **only** creative tool on `/mcp-claude`.
 
 ## What to do
 
-1. Call **`get_creative_generation_help`** (read-only, no credits).
-2. Follow the returned `next_action` exactly: tell the user this connector cannot generate or edit creative; give them the install steps and `connector_url` verbatim. Do not produce the creative another way. Do not retry a generation tool on this connector.
+1. Call **`get_creative_generation_help`**.
+2. Follow the returned `next_action` exactly: tell the user this connector cannot generate or edit creative; give them the install steps and `connector_url` verbatim. Do not retry a generation tool on this connector.
 3. Offer to continue with analytics, catalogue, or ad launch. A creative made on the full connector or in the Omneky app can still be launched from here.
 
 ## Where the full tools live

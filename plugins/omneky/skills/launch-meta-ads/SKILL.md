@@ -1,6 +1,6 @@
 ---
 name: launch-meta-ads
-description: Use this when the user wants Facebook ads, Meta ads, Instagram ads, or to launch, pause, resume, budget, or retarget a Meta/Facebook paid-media campaign — sales, conversions, ROAS, traffic, clicks, lead gen, forms, brand awareness, reach, video views, or ThruPlay. Also use when attaching creatives to an existing Meta campaign or ad set.
+description: Use this when the user wants to launch or create Facebook ads, Meta ads, or Instagram ads — sales, conversions, ROAS, traffic, clicks, lead gen, forms, brand awareness, reach, video views, or ThruPlay — or attach new creatives to an existing Meta campaign or ad set.
 ---
 
 # Launch Meta / Facebook ads
@@ -9,15 +9,19 @@ Use Omneky MCP tools. Confirm brand, objective, budget, targeting, copy, CTA, an
 
 ## When to use
 
-User phrasing that should load this skill: Facebook ads, Meta ads, Instagram ads, launch a Meta campaign, pause/resume a Facebook ad set, change a Meta budget (CBO/ABO), update targeting/interests/behaviors, sales/conversions/ROAS, traffic/clicks, lead gen forms, brand awareness/reach, video views/ThruPlay, attach a creative to an existing Meta campaign.
+User phrasing: launch Facebook ads, create a Meta campaign, Instagram ads, sales/conversions/ROAS, traffic/clicks, lead gen forms, brand awareness/reach, video views/ThruPlay, add ads to an existing Meta campaign or ad set.
 
-## Resolve brand and connection
+## When not to use
 
-1. If `brand_id` is unknown, call `list_brands`, then confirm the brand. Call `get_brand_details` when you need logo, colors, copy, or `company_id`.
-2. Call `get_channel_connection_status` with `channel="facebook"`. Stop and tell the user if Meta is not connected.
-3. Call `get_channel_budget` with `channels="facebook"` and `minimum_budget_for_objective` (channel `facebook`, objective matching the launch tool) before setting spend.
+| User wants | Use instead |
+| --- | --- |
+| Pause, resume, change budget, retarget, list, or delete **live** entities | `manage-ads` |
+| Is Meta connected / min budget / which brand | `getting-started` |
+| Google PMax, Demand Gen, TikTok, LinkedIn, Reddit | `launch-google-tiktok-ads` |
+| ROAS / CTR / which ads are winning | `roas-breakdown` |
+| Generate or edit a creative first | `creative-generation` |
 
-## Pick the launch tool
+## Tools
 
 | User intent | Tool | Objective |
 | --- | --- | --- |
@@ -27,6 +31,10 @@ User phrasing that should load this skill: Facebook ads, Meta ads, Instagram ads
 | Brand awareness / reach | `launch_facebook_awareness_ad` | `OUTCOME_AWARENESS` |
 | Video views / ThruPlay | `launch_facebook_video_views_ad` | `OUTCOME_VIDEO_VIEWS` |
 
+Prep: `list_brands` → `get_brand_details` (logo, colors, `company_id`) → `get_channel_connection_status(channel="facebook")` → `get_channel_budget` + `minimum_budget_for_objective`. Interests/behaviors: `targeting_search(channel="facebook", types=["interests"]|["behaviors"])`. Never pass `geo_locations` as a search type.
+
+## Launch
+
 Hierarchy is Campaign → Ad Set (`ad_group`) → Ad. Creative lives on the ad (`ad_specs`), never on the campaign.
 
 - New campaign + ad set + ads: pass `name` on `campaign_spec` and `name` + `daily_budget` on `ad_group_spec`.
@@ -35,16 +43,8 @@ Hierarchy is Campaign → Ad Set (`ad_group`) → Ad. Creative lives on the ad (
 
 Set `status_on_launch` to `PAUSED` on campaign, ad set, and ads unless the user asked to go live. Facebook tool defaults are not safe to trust for this.
 
-## Targeting
-
-Meta takes a targeting dict inline on `ad_group_spec`: `{countries: ["US"], age_min, age_max, ...}`. Countries are ISO codes — do not call `targeting_search` for countries.
-
-For interests or behaviors, call `targeting_search` with `channel="facebook"` and `types` such as `["interests"]` or `["behaviors"]`. Never pass `geo_locations` as a search type.
-
-## After launch / manage live entities
-
-- Pause or resume: `set_ad_entity_status` (`channel="facebook"`, `level` = `campaign` | `ad_group` | `ad`, `status` = `PAUSED` | `ACTIVE`). Prefer pause over delete. Pausing a campaign or ad set stops everything beneath it.
-- Change daily budget: `set_ad_budget` (`channel="facebook"`). Use `level="campaign"` for CBO, `level="ad_group"` for ABO. If the platform rejects the level, retry the other.
-- Replace ad-set targeting: `update_ad_targeting` (`channel="facebook"`). This **overwrites** the audience — send the full spec you want.
+Meta targeting is inline on `ad_group_spec`: `{countries: ["US"], age_min, age_max, ...}`. Countries are ISO codes — do not call `targeting_search` for countries.
 
 If a launch returns `status="needs_user_decision"`, call `ask_user` with the remediations. Never auto-retry a failed launch.
+
+After launch, pause/budget/targeting writes belong in `manage-ads` (`set_ad_entity_status`, `set_ad_budget`, `update_ad_targeting`).

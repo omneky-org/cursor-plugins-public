@@ -11,8 +11,8 @@ The Cursor side follows the [Cursor plugin template](https://github.com/cursor/p
 
 | Plugin | Folder | Host | What it does |
 | --- | --- | --- | --- |
-| [Omneky (Cursor)](plugins/omneky/) | `plugins/omneky` | Cursor | Full paid-media MCP — Meta, Google, TikTok, LinkedIn, Reddit; launch, creatives, catalogue, ROAS/CTR |
-| [Omneky (Claude Code)](claude-code/omneky/) | `claude-code/omneky` | Claude Code | Directory-safe MCP — same launch/catalogue/analytics skills; creative-referral only |
+| [Omneky (Cursor)](plugins/omneky/) | `plugins/omneky` | Cursor | Full paid-media MCP — Meta, Google, TikTok, LinkedIn, Reddit; getting-started, launch, manage, creatives, catalogue, ROAS/CTR |
+| [Omneky (Claude Code)](claude-code/omneky/) | `claude-code/omneky` | Claude Code | Directory-safe MCP — same launch/manage/catalogue/analytics skills; creative-referral only |
 
 ## Use in Cursor
 
