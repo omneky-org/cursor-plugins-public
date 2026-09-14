@@ -5,14 +5,49 @@
     "email": "support@omneky.com"
   },
   "metadata": {
-    "description": "Omneky Cursor Marketplace plugins for performance ads and creatives",
-    "version": "1.0.0"
+    "description": "Omneky Cursor Marketplace plugins for paid media, performance ads, and creatives",
+    "version": "1.1.0"
   },
   "plugins": [
     {
       "name": "omneky",
       "source": "./plugins/omneky",
-      "description": "Generate and launch ads, manage products, and report performance in Cursor via Omneky MCP"
+      "description": "Paid-media MCP for Meta, Google, TikTok, LinkedIn & Reddit — launch campaigns, generate creatives, manage brand catalogue, report ROAS/CTR.",
+      "keywords": [
+        "omneky",
+        "paid media",
+        "performance ads",
+        "meta ads",
+        "facebook ads",
+        "google ads",
+        "tiktok ads",
+        "linkedin ads",
+        "reddit ads",
+        "roas",
+        "ctr",
+        "campaigns",
+        "creative generation",
+        "brand catalogue",
+        "product catalogue",
+        "mcp",
+        "analytics"
+      ],
+      "tags": [
+        "omneky",
+        "paid media",
+        "performance ads",
+        "meta ads",
+        "facebook ads",
+        "google ads",
+        "tiktok ads",
+        "linkedin ads",
+        "reddit ads",
+        "roas",
+        "ctr",
+        "campaigns",
+        "mcp",
+        "analytics"
+      ]
     }
   ]
 }

@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "omneky": {
+      "type": "http",
+      "url": "https://mcp.omneky.com/mcp-claude",
+      "note": "Omneky Directory-safe MCP for Claude Code. On first connection, complete browser OAuth with an Omneky account. Do not ask the user to paste a JWT or API key. Endpoint must include /mcp-claude — the bare host is not a valid MCP path. This is not /mcp (full public surface with AI creative gen/edit)."
+    }
+  }
+}

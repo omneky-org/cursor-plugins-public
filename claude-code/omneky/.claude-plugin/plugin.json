@@ -1,0 +1,34 @@
+{
+  "name": "omneky",
+  "displayName": "Omneky",
+  "description": "Paid-media MCP for Meta, Google, TikTok, LinkedIn & Reddit — launch campaigns, manage brand catalogue, report ROAS/CTR.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Omneky",
+    "email": "support@omneky.com",
+    "url": "https://www.omneky.com"
+  },
+  "homepage": "https://www.omneky.com",
+  "repository": "https://github.com/omneky-org/cursor-plugins-public",
+  "license": "MIT",
+  "keywords": [
+    "omneky",
+    "paid media",
+    "performance ads",
+    "meta ads",
+    "facebook ads",
+    "google ads",
+    "tiktok ads",
+    "linkedin ads",
+    "reddit ads",
+    "roas",
+    "ctr",
+    "campaigns",
+    "brand catalogue",
+    "product catalogue",
+    "mcp",
+    "analytics",
+    "claude code"
+  ],
+  "mcpServers": "./.mcp.json"
+}
