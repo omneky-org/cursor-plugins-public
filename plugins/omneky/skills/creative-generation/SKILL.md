@@ -30,9 +30,11 @@ User phrasing: generate an image ad, static ad, product video, creative generati
 | Queue a multi-scene product video | `generate_product_video` |
 | One-shot status peek | `get_generation_status` |
 | Edit copy/colors/layout on a finished image | `edit_image` |
-| Change aspect ratio of a finished ad | `resize_ad` |
+| Change aspect ratio of a finished ad | `resize_ad` / `resize_image` (free, sync) |
 
 `get_current_user` for `user_id`. `list_brands` / `get_brand_details` for `brand_id`, `company_id`, assets. Product-specific: `list_brand_products` → `get_product_details` (alias `fetch_product_details`).
+
+Do not invent Central-only names (`trigger_ac_ad_generation`, `trigger_multi_scene_product_video`) or sibling tools (`trigger_product_video_v2`, UGC/reco, `edit_video`). They are not on this surface. Never loop `get_generation_status`.
 
 ## Resolve brand / product
 
@@ -60,8 +62,10 @@ For extra placements, generate once at a primary ratio, then call `resize_ad` fo
 ## Edit and resize
 
 - `edit_image` — change copy, colors, layout, or style on an existing finished image. Synchronous; returns `presigned_url`. No `job_id` / `get_generation_status`. Costs 5 credits on success.
-- `resize_ad` — change aspect ratio of a finished ad (`ad_url` + `aspect_ratio`). Synchronous; returns `resized_ad_url`. Not charged. Do not use `get_generation_status`.
+- `resize_ad` and `resize_image` — change aspect ratio of a finished ad (`ad_url` + `aspect_ratio`). Synchronous; free; returns `resized_ad_url`. Do not use `get_generation_status`.
 
 ## Status
 
 `get_generation_status` is a single non-blocking peek. Follow `next_action`. Statuses: `queued`, `processing`, `completed` (use `assets`), `failed` / `cancelled`, `error`, `unknown`. Never poll in a loop in the same turn.
+
+When handing off to launch, persist the chat creative with `register_creative_for_launch` (alias `register_ad_instance_item`) if that tool is on this surface, then switch to `launch-meta-ads` or `launch-google-tiktok-ads`.

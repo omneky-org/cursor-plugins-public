@@ -7,6 +7,8 @@ description: Use this when the user wants to launch Google ads, Performance Max,
 
 Use Omneky MCP tools. Confirm brand, channel, objective, budget, targeting, copy, CTA, and landing URL with `request_user_decision` (alias `ask_user`) before any write. Default new launches to **paused** / disabled unless the user explicitly asks to go live.
 
+Do not skip the targeting pre-call on LinkedIn or TikTok — those APIs return 400 without a location.
+
 ## When to use
 
 User phrasing: Google ads, Performance Max / PMax, Demand Gen, YouTube / Discover / Gmail, TikTok ads (conversions, traffic, leads, video views), LinkedIn ads (awareness, website visits, conversions, engagement), Reddit ads (awareness, traffic, conversions, leads, video views), attach to an existing PMax or TikTok campaign.
@@ -26,9 +28,19 @@ User phrasing: Google ads, Performance Max / PMax, Demand Gen, YouTube / Discove
 1. Resolve brand: `list_brands` → confirm → `get_brand_details` if you need identity assets.
 2. `get_channel_connection_status` for that channel (`google` \| `tiktok` \| `linkedin` \| `reddit`). Stop if not connected.
 3. `get_channel_budget` and `minimum_budget_for_objective` before setting spend.
-4. Hierarchy is Campaign → Ad Set / asset group → Ad. Attach to an **existing** campaign or ad set by passing its id. Creative is never attached to a campaign directly.
+4. Look up targeting, then call `launch_<channel>_<objective>_ad`.
 
-If a launch returns `status="needs_user_decision"`, call `request_user_decision` (alias `ask_user`). Never auto-retry a failed launch.
+| Channel | Required pre-call | Notes |
+|---|---|---|
+| Google PMax | none | Set `link_url`; Google places automatically |
+| Google Demand Gen | `search_google_countries` (alias `google_country_search`) | Pass `adset_spec_fragment` values as `targeting_fragments` |
+| LinkedIn | `search_ad_targeting` (alias `targeting_search`) (`..., types=["locations"]`) | Must include a `urn:li:adTargetingFacet:locations` entry |
+| TikTok | `get_tiktok_location_ids` | `location_ids` is required on the ad group |
+| Reddit | none | Inline `targeting`: `{"geolocations": ["US"], "communities": [...]}` |
+
+Hierarchy is Campaign → Ad Set / asset group → Ad. Attach to an **existing** campaign or ad set by passing its id. Creative is never attached to a campaign directly.
+
+If a launch returns `status="needs_user_decision"`, call `request_user_decision` (alias `ask_user`). Never auto-retry a failed launch. This surface does **not** expose Omneky-managed Meta/OpenAI launches — do not invent those names.
 
 ## Tools by channel
 
@@ -65,7 +77,7 @@ Status values are `PAUSED` \| `ENABLED`. Default `status_on_launch` to `PAUSED` 
 | Engagement | `launch_linkedin_engagement_ad` |
 | Website visits | `launch_linkedin_website_visits_ad` |
 
-Locations are required: `search_ad_targeting` (alias `targeting_search`) (`channel="linkedin"`, `types=["locations"]`, `query=...`). Build `ad_group_spec.targeting_criteria` from the returned URNs (AND-of-ORs). Hierarchy is Campaign Group (`campaign_spec`) → Campaign (`ad_group_spec`) → Creative (`ad_specs`). Default `status_on_launch` to `PAUSED`.
+Locations are required: `search_ad_targeting` (alias `targeting_search`) (`channel="linkedin"`, `types=["locations"]`, `query=...`). Build `ad_group_spec.targeting_criteria` from the returned URNs (AND-of-ORs). Hierarchy is Campaign Group (`campaign_spec`) → Campaign (`ad_group_spec`) → Creative (`ad_specs`). `start_date` is required when creating a new campaign group. Default `status_on_launch` to `PAUSED`.
 
 ### Reddit
 
@@ -77,6 +89,6 @@ Locations are required: `search_ad_targeting` (alias `targeting_search`) (`chann
 | Traffic / clicks | `launch_reddit_traffic_ad` |
 | Video views | `launch_reddit_video_views_ad` |
 
-Targeting is inline: `geolocations` (ISO), `communities` (no `r/` prefix), interests, keywords, `age_ranges`. Ad-group daily budget minimum is $5. Default `configured_status` to `PAUSED`.
+Targeting is inline: `geolocations` (ISO), `communities` (no `r/` prefix), interests, keywords, `age_ranges`. Ad-group daily budget minimum is $5. `bid_value` is microcurrency (dollars × 1,000,000); $5 = `5000000`. Default `configured_status` to `PAUSED`.
 
 After launch, budget/status writes belong in `manage-ads` (`set_ad_budget` for Google campaign-level; `set_ad_status` (alias `set_ad_entity_status`) is Facebook-only on this connector).

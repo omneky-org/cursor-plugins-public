@@ -29,6 +29,8 @@ User phrasing: ROAS, CTR, CPC, CPA, spend, impressions, conversions, which ads/c
 | Day-by-day time series / charts (spend, ROAS, CTR) | `get_daily_metrics` |
 | What rose or fell vs the prior window (WoW / MoM movers) | `get_performance_movers` (alias `get_trending`) |
 | Turn a human campaign/ad name into a filter value | `search_reporting_values` (alias `search_dimension_values`) |
+| What to try next from historical performance | `get_recommendations` |
+| Current spend per channel | `get_channel_budget` |
 | Confirm the brand has imported performance data | `check_reporting_data_available` (alias `data_available`) |
 | Signed-in `user_id` | `get_current_user` |
 
@@ -54,5 +56,11 @@ Required: `brand_id`, `user_id`, `dimension`, `metric` (e.g. `ROAS`, `CLICK_THRO
 ## Filters
 
 If the user names a campaign, ad, or channel, call `search_reporting_values` (alias `search_dimension_values`) (`brand_id`, `dimension`, `q`) first, then pass exact values as `{condition: "includes"|"excludes", dimension, value: [...]}` on `get_performance_breakdown` / `get_daily_metrics`.
+
+## Rules
+
+- Stay on these structured tools. There is no public SQL tool — do not invent `run_sql_query` or warehouse table names.
+- Do not invent score / lift endpoints. They are not on this surface.
+- `selected_conversion_metric_value` is the brand's configured goal and **varies per channel**. Never sum it across channels; group by channel or use a named metric (`purchases`, `clicks`, …).
 
 Report numbers with the date range and dimension you actually queried. If `check_reporting_data_available` (alias `data_available`) says there is no import yet, say so instead of fabricating a table.

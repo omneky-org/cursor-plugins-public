@@ -59,3 +59,5 @@ Do **not** use `update_brand_product` (alias `upsert_brand_product`) to finalize
 4. `finalize_scraped_product` with `brand_id`, draft `product_id`, `image_urls` (min 1), `product_name`, `product_description`. Zero images is blocked. Return the finalized `product_id` (equals `folder_id`).
 
 Re-import: optionally `update_product_url`, then `scrape_product_from_url` again (new draft) and `finalize_scraped_product`.
+
+After catalogue work, route product creative to `creative-generation`, or launch with `launch-meta-ads` / `launch-google-tiktok-ads`.

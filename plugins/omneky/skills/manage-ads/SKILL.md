@@ -34,7 +34,7 @@ User phrasing: pause this campaign, stop spend, turn the ad set back on, resume 
 | Replace ad-set targeting | `update_ad_targeting` | `facebook` only. **Overwrites** the audience — send the full spec. |
 | Delete | `delete_campaign` / `delete_ad_group` / `delete_ads` | Irreversible — confirm with `request_user_decision` (alias `ask_user`) first. |
 
-Also useful: `get_channel_connection_status`, `get_channel_budget`, `minimum_budget_for_objective`.
+Also useful: `get_channel_connection_status`, `get_channel_budget`, `minimum_budget_for_objective`. Persist a chat creative before a later launch with `register_creative_for_launch` (alias `register_ad_instance_item`) if that tool is on this surface.
 
 ## Sequence
 
