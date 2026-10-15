@@ -2,7 +2,7 @@
 
 Public listings for Omneky on **Cursor Marketplace** and **Claude Code**. Neither package contains MCP server source.
 
-- **Cursor**: installing the Omneky plugin points Cursor at the full hosted MCP (`https://mcp.omneky.com/mcp`) and uses OAuth to link your workspace.
+- **Cursor**: installing the Omneky plugin points Cursor at the full hosted MCP (`https://mcp.omneky.com/grok`) and uses OAuth to link your workspace.
 - **Claude Code**: the sibling plugin points at the Directory-safe MCP (`https://mcp.omneky.com/mcp-claude`) — launch, catalogue, and analytics skills, with creative generation referred via `get_creative_generation_help`. The [Connectors Directory](https://claude.ai/directory/omneky) listing is separate and already live.
 
 The Cursor side follows the [Cursor plugin template](https://github.com/cursor/plugin-template) multi-plugin layout.
@@ -28,7 +28,7 @@ You need an [Omneky](https://www.omneky.com) account. Support: support@omneky.co
 .cursor-plugin/marketplace.json   # Cursor Marketplace manifest
 plugins/omneky/                   # Cursor plugin (full MCP)
   .cursor-plugin/plugin.json
-  mcp.json                        # https://mcp.omneky.com/mcp
+  mcp.json                        # https://mcp.omneky.com/grok
   skills/*/SKILL.md
   assets/logo.svg
   README.md
