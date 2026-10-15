@@ -25,7 +25,7 @@ Cursor discovers the hosted server from [`mcp.json`](./mcp.json):
 
 - Name: `omneky`
 - Transport: HTTP
-- URL: `https://mcp.omneky.com/mcp`
+- URL: `https://mcp.omneky.com/grok`
 
 Auth is OAuth with dynamic client registration. There is no static client id and no API key in this repo.
 

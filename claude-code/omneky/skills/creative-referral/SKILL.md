@@ -39,6 +39,6 @@ That is the **only** creative tool on `/mcp-claude`.
 
 ## Where the full tools live
 
-`get_creative_connector_setup` (alias `get_creative_generation_help`) points at the full Omneky MCP (`https://mcp.omneky.com/mcp`) as a **custom Claude connector** the user adds themselves. That surface has `generate_image_ad`, `fetch_product_video_narratives`, `generate_product_video`, `edit_image`, `resize_ad`, and `get_generation_status`. The Cursor plugin in this repo also uses `/mcp`.
+`get_creative_connector_setup` (alias `get_creative_generation_help`) points at the full Omneky MCP (`https://mcp.omneky.com/mcp`) as a **custom Claude connector** the user adds themselves. That surface has `generate_image_ad`, `fetch_product_video_narratives`, `generate_product_video`, `edit_image`, `resize_ad`, and `get_generation_status`. The Cursor plugin in this repo uses `/grok`, which carries the same full tool set minus ChatGPT widget-only tools.
 
 Do not change this plugin's `.mcp.json` to `/mcp`. The Connectors Directory listing is separate and already live; this skill is only the Claude Code referral path.

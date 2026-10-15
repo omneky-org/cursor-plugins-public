@@ -2,7 +2,7 @@
   "mcpServers": {
     "omneky": {
       "type": "http",
-      "url": "https://mcp.omneky.com/mcp"
+      "url": "https://mcp.omneky.com/grok"
     }
   }
 }
