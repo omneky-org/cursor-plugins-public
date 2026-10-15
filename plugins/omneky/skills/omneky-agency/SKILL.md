@@ -92,7 +92,7 @@ brand set once; do not re-ask per metric.
    before generate or launch. A yes for brand A is not a yes
    for brand B.
 3. Creative / launch follow those skills. Default `PAUSED`.
-   No quote, no run. Pass each brand's own `brand_id`.
+   Pass each brand's own `brand_id`.
 4. Deliverable: per-brand status table (quoted, generated,
    launched `PAUSED`, skipped).
 

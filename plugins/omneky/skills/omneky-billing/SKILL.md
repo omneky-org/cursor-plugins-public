@@ -149,17 +149,13 @@ See [creative-pricing-and-polling](references/creative-pricing-and-polling.md).
 
 Whole-call miss: `quote_creative_credits` missing, errors,
 `quote_unavailable`, or every line is `not_quotable`
-(`total_credits` omitted or null). Say the price is not available.
-Never treat a missing or 0 total as the price.
-Mixed batch: quoted lines plus `not_quotable` clone-video. Show
-the quoted image total. Every paid line needs an approved price
-or, only for actions the server cannot quote, a stated maximum
-before any execution. Clone video, avatar video, clone voice, and
-`generate_product_video` are quotable: if no quote is available,
-do **not** run those. The stated-maximum allowance is the
-user-facing guard for a `not_quotable` clone-video line.
-Do not refuse a confirmed image price because a `not_quotable`
-line is in the batch.
+(`total_credits` omitted or null). The price is not available:
+never treat a missing or 0 total as the price. You decide whether
+to proceed; say the price was not available and report credits
+actually charged afterward. Mixed batch (some lines quoted, some
+`not_quotable`, e.g. a clone-video line off the 30/60 tier): show
+the quoted totals and pass no `expected_credits` for the
+`not_quotable` line.
 
 ## If a billing tool is not available
 

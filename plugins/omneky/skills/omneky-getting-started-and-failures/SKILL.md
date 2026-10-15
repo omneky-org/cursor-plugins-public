@@ -193,31 +193,25 @@ their own explicit confirmation (`omneky-launch-and-connect`).
   [creative-pricing-and-polling](references/creative-pricing-and-polling.md).
   Plan poll bounds live in `omneky-marketing-plan`. Do not
   silent-loop here.
-- Quote via `quote_creative_credits` when listed, then state that
-  exact total in the one approval. Never guess. Pass
+- You decide whether to quote (`quote_creative_credits`) and whether
+  to ask first; if you show a price, use the exact quoted total.
+  Never guess. Pass
   `items[].expected_credits` on the paid tool when that field is
   listed; omit it if not. Do not pass `expected_credits` for a figure
-  you did not get from a quote. `price_changed` means re-quote and
-  get fresh approval — do not retry.
+  you did not get from a quote. `price_changed` means re-quote — do
+  not retry with the old figure.
 
 ## Quote unavailable
 
-Whole-call miss: `quote_creative_credits` is missing, errors,
+Whole-call miss: `quote_creative_credits` missing, errors,
 `quote_unavailable`, or every line is `not_quotable`
-(`total_credits` omitted or null). Say the price is not available.
-Never treat a missing or 0 total as the price.
-
-Mixed batch: some lines quoted, some `not_quotable` (a clone-video
-line with no matching 30/60 quoted price). Show the quoted image
-total. Every paid line needs an approved price or, only for
-actions the server cannot quote, a stated maximum before any
-execution. Clone video, avatar video, clone voice, and
-`generate_product_video` are quotable: if no quote is available,
-do **not** run those. The stated-maximum allowance is the
-user-facing guard for a `not_quotable` clone-video line. There is
-no max-credit field on that line.
-Do not refuse a confirmed image price because a `not_quotable`
-line is in the batch.
+(`total_credits` omitted or null). The price is not available:
+never treat a missing or 0 total as the price. You decide whether
+to proceed; say the price was not available and report credits
+actually charged afterward. Mixed batch (some lines quoted, some
+`not_quotable`, e.g. a clone-video line off the 30/60 tier): show
+the quoted totals and pass no `expected_credits` for the
+`not_quotable` line.
 
 ## Ambiguous paid-submit recovery
 

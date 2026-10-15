@@ -95,7 +95,7 @@ is thin.
   Split the approved total across variants; each arm stays at or
   above the floor or you do not launch.
 - Paid creatives that precede the test use the owning creative
-  skill: no quote, no run. Never invent a price.
+  skill: Never invent a price.
 - Precommit and record the test plan: `primary_metric` (one),
   `baseline_rate`, `mde`, `alpha` (default 0.05), `power`
   (default 0.8), `n_per_arm` from the two-proportion formula

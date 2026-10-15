@@ -68,12 +68,12 @@ Ship a talking-head: founder/spokesperson, localized voice, or a UGC genre. Cust
 | Avatars | `list_avatar_filters` + `search_avatars` | Custom HTTPS face allowed |
 | Voices / locale | `list_voices` | Omit `voice_id`, or `clone_voice` after consent in `omneky-voice-and-video-clone` |
 | Product still | `get_product_details` | Omit `product_image_url`; quote `AVATAR_WITHOUT_PRODUCT_IMAGE` |
-| Quote | `quote_creative_credits` | No quote, no run |
+| Quote (your call) | `quote_creative_credits` | You decide; no price → say so |
 | Generate | `generate_avatar_video_ad` | Say avatar video is not on this connector |
 
 ## Flow
 
-Brief → quote → yes → generate. Localized: pick `voice_id` from `list_voices` per language. Founder: custom face + a cloned voice when they asked. Deliverable: URL, spoken line, claims sources, confidence.
+Brief → quote if you choose → generate. Localized: pick `voice_id` from `list_voices` per language. Founder: custom face + a cloned voice when they asked. Deliverable: URL, spoken line, claims sources, confidence.
 
 Take `approved_claims` from the analytics or plan handoff, or ask
 the user for each claim and its source (including the approved
@@ -94,22 +94,19 @@ capability registry.
 ## Hard rules
 
 - Stick to the chosen `brand_id`. Never silent-switch brands.
-- Quote before the first paid avatar action when
-  `quote_creative_credits` is listed. Avatar video is quotable: if
-  no quote is available, do **not** run. Do not apply a
-  stated-maximum allowance to avatar. Pass `expected_credits` when
-  that field is listed. Do not refuse a confirmed avatar price
-  because another line is `not_quotable`.
+- You decide whether to quote with `quote_creative_credits` and
+  whether to ask before a paid avatar action. Pass
+  `expected_credits` only from a quote. Report credits actually
+  charged after the run.
 - Only pass URLs / portraits from `list_ad_instance_items` /
   `search_avatars` / the user's own brand assets. Do not invent a
   public video or portrait URL.
 - `generate_avatar_video_ad` has no caller idempotency key. After an
   ambiguous timeout do **not** resubmit. Check
   `list_ad_instance_items`.
-- Fill a structured brief before you quote. No quote, no run.
+- Fill a structured brief before you generate.
 - After render: inspect, then cheapest repair. There is no in-place
-  audio edit — a wrong spoken line is a new generate after a fresh
-  quote and yes. Never silently report success. Never resubmit a
+  audio edit — a wrong spoken line is a new generate (paid again). Never silently report success. Never resubmit a
   charged job blindly.
 - Narrate long video jobs per Generation polls (queued / rendering
   / still rendering). Do not invent a pipeline stage the server
@@ -128,7 +125,7 @@ capability registry.
 5. If there is no product image, omit `product_image_url` and quote
    the `AVATAR_WITHOUT_PRODUCT_IMAGE` line — do not require a
    product image. When a still is available, pass it and quote the
-   with-product line. Call `quote_creative_credits` first.
+   with-product line if you quote.
 6. Check once with `get_generation_status(job_id, kind="video")`
    per Generation polls in the pricing reference (return the URL
    only on terminal success). State results plainly.

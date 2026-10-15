@@ -65,10 +65,8 @@ brief and treat the variant as exploratory.
 4. Placement: use the aspect the user named, or the channel default
    from the launch skill. Extra placements are a later resize, not
    N extra hypotheses.
-5. Quote only after every brief in the batch is filled. Then one
-   approval that names the count, the quoted `total_credits` (or the
-   stated maximum only for actions the server cannot quote), and
-   `expected_credits` on each quotable line.
+5. Fill every brief in the batch before generating. If you quote or
+   ask, do it once for the batch.
 
 ## After the render
 

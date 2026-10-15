@@ -67,11 +67,11 @@ Clone a consented voice or a winning library video onto our product. Not a new t
 | Voices list | `list_voices` | Verify new id under cloned_voices |
 | Clone source video | `list_ad_instance_items` | Stop if none eligible |
 | Product | `list_brand_products` | Create one; clone video always needs `product_id` |
-| Quote | `quote_creative_credits` | No quote, no run |
+| Quote (your call) | `quote_creative_credits` | You decide; no price → say so |
 
 ## Flow
 
-Consent → quote → yes → clone. Deliverable: `voice_id` or cloned video URL, recommendation, confidence.
+Consent → quote if you choose → clone. Deliverable: `voice_id` or cloned video URL, recommendation, confidence.
 
 Take `approved_claims` from the analytics or plan handoff, or ask
 the user for each claim and its source. Take `source_evidence` only
@@ -94,12 +94,12 @@ capability registry.
 ## Hard rules
 
 - Stick to the chosen `brand_id`. Never silent-switch brands.
-- Quote before the first paid clone action when
-  `quote_creative_credits` is listed. Clone video and clone voice
-  are quotable: if no quote is available, do **not** run. A
-  `not_quotable` clone line is not a 0 price — do not start the
-  paid call for that line. Do not apply a stated-maximum
-  allowance to clone video or clone voice.
+- You decide whether to quote with `quote_creative_credits` and
+  whether to ask before a paid clone action. A `not_quotable` line
+  (clone video off the 30/60 duration tier) has no known price:
+  never present it as 0, say the price was not available, and do
+  not pass `expected_credits` for it. Report credits actually
+  charged after the run.
 - Confirm speaker consent before calling `clone_voice`.
 - Use only `video_url` from `list_ad_instance_items`.
 - Stop the clone-video flow on pre-assessment `nsfw-error`.
@@ -116,8 +116,7 @@ capability registry.
 Confirm speaker consent before calling.
 
 1. `clone_voice` takes `brand_id` and `voice_url` (optional `name`).
-   Quote first. Clone voice is quotable: if no quote is available,
-   do **not** run. Pass `expected_credits` when that field is listed.
+   Quote if useful; pass `expected_credits` only from a quote.
    Synchronous — it returns `voice_id`. Do **not** poll
    `get_generation_status`.
 2. Call `list_voices` with `brand_id`. It returns a cloned_voices
@@ -138,10 +137,10 @@ Confirm speaker consent before calling.
 3. `clone_video_pre_assessment` takes `brand_id` and that `video_url`.
    Relay the questions and disclaimers. Stop if the result reports
    status nsfw-error.
-4. Quote `generate_new_clone_video_ad` with `duration_s` from
-   `get_video_metadata`. Clone video is quotable: if no quote is
-   available, do **not** run. A `not_quotable` clone line is not a
-   0 price — do not start the paid call for that line.
+4. Optionally quote `generate_new_clone_video_ad` with `duration_s`
+   from `get_video_metadata`. A `not_quotable` line is not a 0
+   price; you decide whether to proceed and say the price was not
+   available.
 5. `generate_new_clone_video_ad` always takes `brand_id`, that
    `video_url`, `locale`, catalogue `product_id`, `aspect_ratio`,
    and `user_answers_for_cloning` from the pre-assessment. Pass

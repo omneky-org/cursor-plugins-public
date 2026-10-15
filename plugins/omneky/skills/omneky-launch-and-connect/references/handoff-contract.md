@@ -23,7 +23,7 @@ performance-informed).
 | placement | creative | Aspect (`1:1`, `4:5`, `9:16`, `16:9`) and channel placement. |
 | `asset_url` | creative | The finished HTTPS URL. |
 | dimensions, `duration_s` | creative | Observed from the fetched file, not the request. |
-| approval | user | What the one yes covered: items, count, quoted `total_credits` or stated maximum, spend cap if any, status on launch. |
+| approval | user | What was approved (if the host asked): items, count, quoted `total_credits` if any, credits charged, spend cap if any, status on launch. |
 | receipt | creative | `job_id` and `gpt_ad_gen_id` where they exist, `expected_credits` passed, charged credits observed (or "not shown"), generation status. |
 | `quality_result` | creative | Gates passed (observed), failed, not observed, and `accepted_exceptions` (overridden BLOCKs / accepted WARNs). |
 | `creative_brief` | creative | Structured brief (`angle`, `hook`, `benefit`, `composition`, `evidence`, `cta`, `brand_constraints`, `placement`). See the creative-brief reference. |
