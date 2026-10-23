@@ -5,15 +5,27 @@
     "email": "support@omneky.com"
   },
   "metadata": {
-    "description": "Omneky Cursor Marketplace plugins for paid media, performance ads, and creatives",
-    "version": "1.2.0"
+    "description": "Omneky Cursor Marketplace plugins for AI ad creatives, paid media, and performance marketing",
+    "version": "1.2.1"
   },
   "plugins": [
     {
       "name": "omneky",
       "source": "./plugins/omneky",
-      "description": "Paid-media MCP for Meta/Facebook, Google PMax/Demand Gen, TikTok, LinkedIn & Reddit — launch campaigns, generate creatives, manage brand catalogue, report ROAS/CTR.",
+      "description": "AI ad creatives and paid campaigns: generate image and video ads, then launch and optimize campaigns on Meta, Google, TikTok, LinkedIn & Reddit with ROAS/CTR reporting.",
+      "category": "marketing",
       "keywords": [
+        "ai ad creatives",
+        "ad creatives",
+        "advertising",
+        "marketing",
+        "image ads",
+        "video ads",
+        "ugc ads",
+        "ai video ads",
+        "performance marketing",
+        "campaign management",
+        "ad optimization",
         "omneky",
         "paid media",
         "performance ads",
@@ -37,6 +49,13 @@
         "analytics"
       ],
       "tags": [
+        "advertising",
+        "marketing",
+        "ad creatives",
+        "image ads",
+        "video ads",
+        "campaigns",
+        "analytics",
         "omneky",
         "paid media",
         "performance ads",
@@ -49,13 +68,11 @@
         "roas",
         "ctr",
         "cpc",
-        "campaigns",
         "creative generation",
         "pmax",
         "demand gen",
         "instagram ads",
-        "mcp",
-        "analytics"
+        "mcp"
       ]
     }
   ]
