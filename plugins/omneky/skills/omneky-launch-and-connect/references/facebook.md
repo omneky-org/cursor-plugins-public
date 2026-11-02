@@ -8,11 +8,10 @@ Inline targeting. No lookup tool. Example shape:
 
 | Tool | Notes |
 |---|---|
-| `launch_facebook_sales_ad` | Inline targeting. |
-| `launch_facebook_leads_ad` | Same targeting. Set `lead_gen_form_id` on ad specs for native forms. |
-| `launch_facebook_awareness_ad` | Same targeting. |
-| `launch_facebook_traffic_ad` | Same targeting. |
-| `launch_facebook_video_views_ad` | Same targeting. |
+| `launch_meta_ad` (`objective="sales"`) | Inline targeting. |
+| `launch_meta_ad` (`objective="leads"`) | Same targeting. Set `lead_gen_form_id` on ad specs for native forms. |
+| `launch_meta_ad` (`objective="awareness"`) | Same targeting. |
+| `launch_meta_ad` (`objective="traffic"`) | Same targeting. |
+| `launch_meta_ad` (`objective="video_views"`) | Same targeting. |
 
-Keep `campaign_spec.status_on_launch` `"PAUSED"` unless the user
-explicitly says to go live.
+Live vs paused (`campaign_spec.status_on_launch`) follows what the user asked; the server adds no default.

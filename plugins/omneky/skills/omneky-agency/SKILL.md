@@ -15,32 +15,24 @@ description: >-
 
 # Agency multi-brand work
 
-Use the connected Omneky MCP server. Gate every named tool on this
-session's `tools/list`. Missing tools → Omneky app. Do not invent
-a tool. Never ask for internal ids.
+Use this when an agency operator wants numbers or a rollout across
+several client brands. One job: cross-brand reports and rollouts,
+one brand at a time. A single brand goes to
+`omneky-analytics-and-catalogue` or the matching creative or launch skill.
 
-This skill owns **cross-brand** reports and rollouts. One brand
-only → `omneky-analytics-and-catalogue` or the matching creative /
-launch skill.
+Gate every tool on this session's `tools/list`; a missing tool → the
+Omneky app. Never ask for internal ids.
 
-Handoff fields:
-[handoff-contract](references/handoff-contract.md).
-Sourced ids:
-[preconditions](references/preconditions.md).
-Acceptance gates:
-[creative-quality-gates](references/creative-quality-gates.md).
-Other intents:
-[capability-registry](references/capability-registry.md).
-Write for:
-[marketer-persona](references/marketer-persona.md).
-Gaps:
-[capability-gaps](references/capability-gaps.md).
+Handoff fields: [handoff-contract](references/handoff-contract.md).
+Sourced ids: [preconditions](references/preconditions.md).
+Acceptance gates: [creative-quality-gates](references/creative-quality-gates.md).
+Other intents: [capability-registry](references/capability-registry.md).
+Write for: [marketer-persona](references/marketer-persona.md).
 
 ## Goal
 
-Give an agency operator per-client numbers and a safe multi-brand
-rollout: one brand at a time, explicit confirmation, no silent
-switch.
+Per-client numbers and a safe multi-brand rollout. Never switch
+brands silently.
 
 ## When to use
 
@@ -59,27 +51,23 @@ switch.
 
 | Need | Check | If missing |
 |---|---|---|
-| Session | `get_current_user` | Host OAuth reconnect |
+| Session | `get_account` | Host OAuth reconnect |
 | Brand list | `list_brands` | No brands → Omneky app. Do not invent |
-| Reporting coverage | `check_reporting_data_available` per `brand_id` | Skip that brand; empty is not zero |
-| Metrics | `get_performance_breakdown` / `get_daily_metrics` / `get_performance_movers` | Narrow the window; do not invent ROAS |
-| Launch apply | matching `launch_*` / `set_ad_budget` / `set_ad_entity_status` | Per-brand yes first. Default `PAUSED` |
+| Reporting coverage | `get_performance_summary` (`include_coverage=true`) per `brand_id` | Skip that brand; empty is not zero |
+| Metrics | `get_performance_breakdown` / `get_performance_summary` / `get_performance_movers` | Narrow the window; do not invent ROAS |
+| Launch apply | matching `launch_*` tool / `set_ad_budget` / `set_ad_status` | Name the brand first; the host confirms. Status as asked |
 
 ## Flow
-
-One short card per brand (spend, ROAS, CTR, mover, next step),
-then a one-line roll-up. Never silent-switch brands. Confirm the
-brand set once; do not re-ask per metric.
 
 ### weekly-cross-brand-report
 
 1. `list_brands`. Show the name + id list. Confirm the set
    (or the named subset) before any metric call.
 2. For each confirmed `brand_id`:
-   - `check_reporting_data_available`
+   - `get_performance_summary` (`include_coverage=true`)
    - `get_performance_breakdown` (winners / spend)
    - `get_performance_movers` when they asked what changed
-   - `get_daily_metrics` when they asked for the chart
+   - `get_performance_summary` when they asked for the chart
 3. Thin samples: "too little data to conclude" + the numbers.
 4. Deliverable: one short card per client (spend, ROAS, CTR,
    mover, recommendation) and a one-line roll-up. Confidence =
@@ -87,11 +75,9 @@ brand set once; do not re-ask per metric.
 
 ### multi-brand-rollout
 
-1. Confirm the brand set. One brand per cycle.
-2. Say the brand name and id. Wait for a yes on **that** brand
-   before generate or launch. A yes for brand A is not a yes
-   for brand B.
-3. Creative / launch follow those skills. Default `PAUSED`.
+1. Resolve the brand set from `list_brands`. One brand per cycle.
+2. Name the brand and id before generating or launching for it. Never reuse one brand's id for another.
+3. Creative / launch follow those skills. Set `campaign_spec.status_on_launch` as asked (no server default).
    Pass each brand's own `brand_id`.
 4. Deliverable: per-brand status table (quoted, generated,
    launched `PAUSED`, skipped).
@@ -103,8 +89,8 @@ One brand empty → skip it; do not pull another brand's rows
 to fill the card.
 `status=timeout` → narrow that brand's window; do not retry
 the identical call this turn.
-`credit_insufficient` → stop that brand; billing if they
-upgrade. Continue other brands only after a new yes.
+`credit_insufficient` → stop that brand and state the shortfall
+(`omneky-billing`). Carry on with the other brands.
 
 ## Gaps
 

@@ -1,0 +1,19 @@
+name: omneky-skill-tools
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  skill-tool-names:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate plugin template
+        run: node scripts/validate-template.mjs
+      - name: Skill tool names match /mcp tools/list
+        run: node scripts/check-omneky-mcp-tool-names.mjs

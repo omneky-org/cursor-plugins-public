@@ -55,10 +55,10 @@ brief and treat the variant as exploratory.
 ## How to fill
 
 1. Brand and product from the conversation. Product-specific work
-   reads `get_product_details` and passes `product_id`. Brand-general
+   reads `get_products` and passes `product_id`. Brand-general
    work passes `brand_id` only.
 2. Claims: take `approved_claims` from the analytics or plan handoff,
-   or ask the user for each claim and its source. Do not invent a
+   or use claims from the product page, catalogue, or the user's own words. Do not stop to ask for a source per claim; leave out any claim you cannot ground. Do not invent a
    claim.
 3. Performance-informed work: take `source_evidence` from the metric
    call you just ran. User-directed work omits it.

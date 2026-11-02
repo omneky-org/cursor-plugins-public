@@ -23,16 +23,16 @@ analysis; A/B create / measure).
 | Winning ads, ROAS, CTR, movers, "which ads should I make more of" | `omneky-analytics-and-catalogue` | Ranked evidence + `source_evidence` (no render) |
 | Weekly performance report (one brand) | `omneky-analytics-and-catalogue` | Windowed readout (coverage, winners, movers) |
 | ROAS / CPA drop diagnosis | `omneky-analytics-and-catalogue` | Evidence memo (movers, breakdown, daily) |
-| Waste-pruner / targeting / target-CPA evidence | `omneky-analytics-and-catalogue` then `omneky-launch-and-connect` | Recommendation; apply only after a yes |
-| Budget reallocation recommendation (read-only) | `omneky-analytics-and-catalogue` then `omneky-launch-and-connect` | Recommendation; apply only after a yes |
+| Waste-pruner / targeting / target-CPA evidence | `omneky-analytics-and-catalogue` then `omneky-launch-and-connect` | Recommendation; apply via `omneky-launch-and-connect` (the host confirms) |
+| Budget reallocation recommendation (read-only) | `omneky-analytics-and-catalogue` then `omneky-launch-and-connect` | Recommendation; apply via `omneky-launch-and-connect` (the host confirms) |
 | Fatigue refresh / top-ROAS variations (evidence first) | `omneky-analytics-and-catalogue` then the matching creative skill | Winner list + N hypotheses |
 | List / import products, PDP, SKU, catalogue | `omneky-analytics-and-catalogue` | Catalogue record (`product_id`) |
-| HubSpot attribution / ABM brief; raw Semrush / Ahrefs / GSC reads | `omneky-analytics-and-catalogue` | Connector read with join-limit caveats |
-| Competitor analysis, positioning, messaging gaps, keyword / GSC angles, domain-rating | `omneky-competitor-analysis` | Cited brief feed (every claim has a source) |
+| HubSpot attribution / ABM brief; raw Semrush / Ahrefs reads | `omneky-analytics-and-catalogue` | Connector read with join-limit caveats |
+| Competitor analysis, positioning, messaging gaps, keyword angles, domain-rating | `omneky-competitor-analysis` | Cited brief feed (every claim has a source) |
 | A/B test create or measure | `omneky-ab-tests` | Test plan, or a readout that may refuse a winner |
 | Branded still, image ad, hero still, before/after, thumbnail still, seasonal kit | `omneky-image-ads` | Finished still(s) + brief + provenance |
 | One hero to every channel size (generate then resize) | `omneky-image-ads` then `omneky-edit-and-resize` | Placement set |
-| Several stills of one concept | `omneky-image-ads` (`generate_multiple_variations_ads` when listed) | Up to 3 stills, one concept |
+| Several stills of one concept | `omneky-image-ads` (`generate_image_ad` (`count` 2-3) when listed) | Up to 3 stills, one concept |
 | Product / launch / explainer / professional / faceless video | `omneky-product-video` | Finished video + narrative / job ids |
 | Revise / re-pick a product-video story | `omneky-product-video` | New cards or a new generate |
 | Avatar / UGC / founder / spokesperson / localized talking-head | `omneky-avatar-ugc` | Talking-head video |
@@ -41,11 +41,11 @@ analysis; A/B create / measure).
 | Clone a winning / library video onto our product | `omneky-voice-and-video-clone` | Cloned video (catalogue `product_id` required) |
 | Edit a finished still, exact headline fix | `omneky-edit-and-resize` | Edited still |
 | Resize / Reels / Stories / 1:1 / 4:5 / 9:16 / existing hero to all sizes | `omneky-edit-and-resize` | Placement still |
-| Launch, pause, budget apply, targeting apply, connect an ad account | `omneky-launch-and-connect` | Campaign / ad in `PAUSED` unless they said go live |
+| Launch, pause, budget apply, targeting apply, connect an ad account | `omneky-launch-and-connect` | Campaign / ad, live or paused as they asked |
 | Paused campaign from winners | `omneky-analytics-and-catalogue` then `omneky-launch-and-connect` | `PAUSED` launch from winning assets |
 | Weekly marketing plan / make me a plan | `omneky-marketing-plan` | Draft plan + preview checklist |
 | Weekly cross-brand report / multi-brand rollout | `omneky-agency` | Per-client cards or per-brand confirmation (no silent switch) |
-| How many ad credits / quote context / upgrade / credit-history audit | `omneky-billing` | Balance, Stripe URL, or dated ledger (never a PAN) |
+| How many ad credits / quote context / upgrade / credit-history audit | `omneky-billing` | Balance, plan, or dated ledger; credits are added on omneky.com (no payment or portal links; never a PAN) |
 
 ## Negative routing (do not steal)
 
@@ -63,7 +63,7 @@ analysis; A/B create / measure).
 | Clone voice or clone a winning library video | `omneky-avatar-ugc` (new talking-head is not a clone) |
 | Brand-new concept | `omneky-edit-and-resize` |
 | Weekly plan create / revise / preview | `omneky-getting-started-and-failures` or analytics |
-| Live spend / go-live / pause apply / budget apply | any creative skill (launch owns it, default `PAUSED`) |
+| Live spend / go-live / pause apply / budget apply | any creative skill (launch owns it; status as asked) |
 | Credit balance / upgrade / credit-history audit | analytics or creative |
 | Sign-in / unauthorized / empty brand | a healthy in-domain skill |
 
@@ -94,12 +94,12 @@ routes through the owning skill above.
 | `winners-this-week` | This week's top ROAS ads (calendar week to date). |
 | `weekly-performance-report` | Coverage, winners, and movers for the stated window. |
 | `roas-cpa-drop` | Movers + breakdown + daily; what to pause or scale. |
-| `waste-pruner` | Underperformers; pause only after a yes. |
-| `audience-targeting` | Breakdowns + `search_ad_targeting`; apply only after a yes. |
-| `target-cpa-budget` | Floor from `minimum_budget_for_objective` / `reach_estimate`. |
+| `waste-pruner` | Underperformers; pause via `omneky-launch-and-connect` (the host confirms). |
+| `audience-targeting` | Breakdowns + `search_targeting` (`channel`, `query`); apply via `omneky-launch-and-connect` (the host confirms). |
+| `target-cpa-budget` | Floor from `get_launch_requirements` / `estimate_reach`. |
 | `fatigue-refresh` | Find fatigued Meta ads; brief 3 replacement hypotheses. |
 | `top-roas-variations` | N distinct stills from verified top-ROAS winners. |
-| `budget-reallocation` | Read-only move recommendation; apply only after a yes. |
+| `budget-reallocation` | Read-only move recommendation; apply via `omneky-launch-and-connect` (the host confirms). |
 | `ugc-from-best-messaging` | Talking-head UGC from the winning line of copy. |
 | `ugc-product` | Product-in-hand talking-head from the catalogue still. |
 | `ugc-review` | Truthful review; no invented claims. |
@@ -116,12 +116,11 @@ routes through the owning skill above.
 | `product-launch-video` | Launch / explainer product video from catalogue stills. |
 | `faceless-product-video` | Product / professional video with no talking head. |
 | `generate-now-video` | Skip the card list only when they say so. |
-| `founder-spokesperson` | Talking-head; custom face allowed; cloned voice optional. |
-| `localized-ad-set` | One talking-head per locale via `list_voices`. |
+| `founder-spokesperson` | Talking-head with the founder or spokesperson (a brand-asset image of a person who has consented); cloned voice optional. |
+| `localized-ad-set` | One talking-head per locale via `find_avatars_and_voices` (`include="voices"`). |
 | `clone-winning-format` | Clone a library video onto our product (not a public file). |
-| `paused-campaign-from-winners` | Launch winners `PAUSED` after one yes. |
+| `paused-campaign-from-winners` | Launch winners `PAUSED` (the host confirms the launch). |
 | `competitor-analysis` | Cited positioning, angles, and gaps. |
-| `gsc-queries-to-ad-angles` | Search Console queries → cited ad angles. |
 | `keyword-gaps` | Semrush / Ahrefs gaps, both sides fetched. |
 | `domain-rating-backlinks` | Ahrefs rating + backlink overview (not Ad Library). |
 | `hubspot-attribution` | Campaign/deal labels side by side; inferred, not attributed. |
@@ -131,9 +130,9 @@ routes through the owning skill above.
 | `weekly-marketing-plan` | Goal → analyze → create → revise → preview; host runs steps. |
 | `weekly-cross-brand-report` | Per-client cards; no silent brand switch. |
 | `multi-brand-rollout` | One brand per yes; never silent-switch. |
-| `credits-and-cost` | Balance then `quote_creative_credits`. |
-| `upgrade-top-up` | `list_available_plans` → `start_plan_upgrade` or portal. |
-| `credit-history-audit` | Ledger via `get_credit_history`. |
+| `credits-and-cost` | Balance when asked; no quote tool. Image 5, product video 10, others priced by length; results report `credits_charged`. |
+| `upgrade-top-up` | Explain the shortfall; the user changes plan in the Omneky app. |
+| `credit-history-audit` | Ledger via `get_account` (`include_credit_history=true`). |
 
 ## Capability gaps (decline cleanly)
 
@@ -149,8 +148,8 @@ it done. Full table:
 | Landing-page builder | Yes | None | A landing-page / site-builder tool |
 | Subtitles / caption burn-in on a video | Yes | None. Uncaptioned is not a captions failure | A subtitle / burn-in tool |
 | Email / SMS campaigns | Yes | None | An email / SMS send tool |
-| Organic social scheduling | Yes | Paid `launch_*` only | An organic scheduler |
-| Meta Ad Library competitor ads | Yes | Cited Semrush / Ahrefs / GSC / `analyze_brand` | An Ad Library scrape tool |
+| Organic social scheduling | Yes | Paid `launch_*` tools only | An organic scheduler |
+| Meta Ad Library competitor ads | Yes | Cited Semrush / Ahrefs / `analyze_brand` | An Ad Library scrape tool |
 | Virtual try-on / garment on a body | Yes | `ugc-product` talking-head with a catalogue still | A try-on / garment tool |
 | Website or landing-page builder | Yes | None | A site-builder tool |
 | Ordered independent edits from one supplied video | Yes | `stills-of-one-concept` or clone one winning library video | A video-variant / ad-multiplier tool |

@@ -2,7 +2,7 @@
 
 Public listings for Omneky on **Cursor Marketplace** and **Claude Code**. Neither package contains MCP server source.
 
-- **Cursor**: installing the Omneky plugin points Cursor at the full hosted MCP (`https://mcp.omneky.com/grok`) and uses OAuth to link your workspace.
+- **Cursor**: installing the Omneky plugin points Cursor at the full hosted MCP (`https://mcp.omneky.com/mcp`) and uses OAuth to link your workspace.
 - **Claude Code**: the sibling plugin points at the Directory-safe MCP (`https://mcp.omneky.com/mcp-claude`) — launch, catalogue, and analytics skills, with creative generation referred via `get_creative_generation_help`. The [Connectors Directory](https://claude.ai/directory/omneky) listing is separate and already live.
 
 The Cursor side follows the [Cursor plugin template](https://github.com/cursor/plugin-template) multi-plugin layout.
@@ -28,8 +28,10 @@ You need an [Omneky](https://www.omneky.com) account. Support: support@omneky.co
 .cursor-plugin/marketplace.json   # Cursor Marketplace manifest
 plugins/omneky/                   # Cursor plugin (full MCP)
   .cursor-plugin/plugin.json
-  mcp.json                        # https://mcp.omneky.com/grok
+  mcp.json                        # https://mcp.omneky.com/mcp
   skills/*/SKILL.md
+  tests/mcp_tool_names.txt        # /mcp tools/list snapshot
+  tests/known_tool_names.txt      # names the guard treats as tools
   assets/logo.svg
   README.md
 claude-code/omneky/               # Claude Code plugin (Directory-safe MCP)
@@ -39,6 +41,7 @@ claude-code/omneky/               # Claude Code plugin (Directory-safe MCP)
   README.md
 docs/add-a-plugin.md              # How to add another Cursor plugin later
 scripts/validate-template.mjs     # Cursor template packaging checks
+scripts/check-omneky-mcp-tool-names.mjs  # skills name only /mcp tools
 ```
 
 Each host's plugin folder is the installable unit. Cursor discovers MCP from `plugins/omneky/mcp.json`; Claude Code discovers MCP from `claude-code/omneky/.mcp.json`. Auth stays OAuth DCR — no client id or API key is stored here.
@@ -68,6 +71,7 @@ Public distribution: submit via [platform.claude.com/plugins/submit](https://pla
 
 ```bash
 node scripts/validate-template.mjs
+node scripts/check-omneky-mcp-tool-names.mjs
 ```
 
 Cursor-only. To add another plugin under `plugins/`, see [`docs/add-a-plugin.md`](docs/add-a-plugin.md). For the Claude Code package, run `claude plugin validate ./claude-code/omneky` when the Claude CLI is available.
