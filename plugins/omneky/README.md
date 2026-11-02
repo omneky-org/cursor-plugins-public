@@ -11,7 +11,7 @@ Skills are the Omneky Grok Bot pack, synced from `omneky-org/public-mcp` (`plugi
 - `omneky-getting-started-and-failures`: sign-in, brands, connections, and error handling.
 - `omneky-analytics-and-catalogue`: ROAS/CTR/CPC/spend reporting and the brand product catalogue.
 - `omneky-launch-and-connect`: connect channels and launch on Meta, Google, TikTok, LinkedIn, Reddit, Pinterest, X, and more (paused by default).
-- `omneky-image-ads`, `omneky-product-video`, `omneky-avatar-ugc`, `omneky-voice-and-video-clone`, `omneky-edit-and-resize`: creative generation (check jobs once with `get_generation_status`).
+- `omneky-image-ads`, `omneky-product-video`, `omneky-avatar-ugc`, `omneky-voice-and-video-clone`, `omneky-edit-and-resize`: creative generation (check jobs once with `get_creative_status`).
 - `omneky-billing`, `omneky-marketing-plan`, `omneky-competitor-analysis`, `omneky-ab-tests`, `omneky-onboarding`, `omneky-agency`.
 
 ## Install
@@ -26,7 +26,7 @@ Cursor discovers the hosted server from [`mcp.json`](./mcp.json):
 
 - Name: `omneky`
 - Transport: HTTP
-- URL: `https://mcp.omneky.com/grok`
+- URL: `https://mcp.omneky.com/mcp`
 
 Auth is OAuth with dynamic client registration. There is no static client id and no API key in this repo.
 

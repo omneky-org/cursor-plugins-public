@@ -31,7 +31,7 @@ required `n_per_arm`, randomization unit, attribution window,
 and a fixed `horizon` (end date or sample). Defaults: α = 0.05,
 power = 0.8. One metric. Do not add a second primary later.
 
-Baseline: call `get_daily_metrics` with `date_range` covering
+Baseline: call `get_performance_summary` with `date_range` covering
 at least the last 14 days when listed. CTR = clicks /
 impressions. CVR = conversions / clicks. If reporting is empty,
 state the assumed baseline and label it an assumption.

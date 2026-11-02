@@ -11,10 +11,10 @@ dollar bid; do not invent a bid they did not approve.
 
 | Tool | Notes |
 |---|---|
-| `launch_reddit_awareness_ad` | Inline targeting + micros `bid_value`. |
-| `launch_reddit_traffic_ad` | Same. |
-| `launch_reddit_conversions_ad` | Same. |
-| `launch_reddit_leads_ad` | Same. |
-| `launch_reddit_video_views_ad` | Same. |
+| `launch_reddit_ad` (`objective="awareness"`) | Inline targeting + micros `bid_value`. |
+| `launch_reddit_ad` (`objective="traffic"`) | Same. |
+| `launch_reddit_ad` (`objective="conversions"`) | Same. |
+| `launch_reddit_ad` (`objective="leads"`) | Same. |
+| `launch_reddit_ad` (`objective="video_views"`) | Same. |
 
-Keep launches `PAUSED` unless the user explicitly says to go live.
+Live vs paused (`campaign_spec.status_on_launch`) follows what the user asked; the server adds no default.

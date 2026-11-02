@@ -13,8 +13,8 @@ this session's `tools/list`.
 | Landing-page builder | Yes | None | A landing-page / site-builder tool |
 | Subtitles / caption burn-in | Yes | None. Uncaptioned is not a captions failure | A subtitle / burn-in tool |
 | Email / SMS campaigns | Yes | None | An email / SMS send tool |
-| Organic social scheduling | Yes | Paid `launch_*` only | An organic scheduler |
-| Meta Ad Library competitor ads | Yes | Cited Semrush / Ahrefs / GSC / `analyze_brand` | An Ad Library scrape tool |
+| Organic social scheduling | Yes | Paid `launch_*` tools only | An organic scheduler |
+| Meta Ad Library competitor ads | Yes | Cited Semrush / Ahrefs / `analyze_brand` | An Ad Library scrape tool |
 | Virtual try-on / garment on a body | Yes | `ugc-product` talking-head with a catalogue still | A try-on tool |
 | Website builder | Yes | None | A site-builder tool |
 | Ordered video edits from one supplied file | Yes | Stills-of-one-concept, or clone one library video | A video-variant / ad-multiplier tool |

@@ -17,8 +17,8 @@ Do not open with tool names, JSON, or a questionnaire.
 ## Fast path
 
 Reuse the brand already chosen. "This week" is the calendar week
-to date. New launches default to `PAUSED`. You decide whether
-paid creative work needs a quote or a yes. Ask only for a missing prerequisite the table
+to date. Live vs paused follows the user's request. For paid
+creative work, state the cost and proceed. Ask only for a missing prerequisite the table
 cannot recover. Never ask for internal ids.
 
 ## Vocabulary
