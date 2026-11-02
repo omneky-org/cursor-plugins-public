@@ -89,7 +89,7 @@ asset on the Ad (`ad_specs`), never on the campaign.
    the table. Read that channel's reference. Do not guess a sibling
    objective.
 2. **Connected account (self-managed only).**
-   `list_connections` (X Ads: `connector="x"`).
+   `list_connections` (X Ads: `connector="twitter"`).
    Pinterest also: `list_connections` (`connector="pinterest"`). Disconnected →
    Connect below. Do not launch.
 3. **Budget.** `get_launch_requirements` with `brand_id`, channel,
@@ -286,7 +286,7 @@ is still not confirmed, say so in one short plain sentence (e.g.
 "I couldn't confirm the saved budget").
 
 - Campaign / ad-set / ad ids — launch reply, then `list_live_ads` /
-  `list_live_ads` (`level="ad_group"`, `parent_id` = campaign id) / `list_live_ads` (`level="ad"`, `parent_id` = ad group id) (Pinterest: `get_pinterest_*`)
+  `list_live_ads` (`level="ad_group"`, `parent_id` = campaign id) / `list_live_ads` (`level="ad"`, `parent_id` = ad group id) (Pinterest: the same `list_live_ads` calls with `channel="pinterest"`)
 - Status equals the approval (live or paused as they asked) —
   same reply or a get_* read-back, not request `status_on_launch`
 - Budget and dates — created entity via get_*. Request args never
