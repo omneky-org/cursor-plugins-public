@@ -1,8 +1,8 @@
 {
   "name": "omneky",
   "displayName": "Omneky",
-  "description": "Paid-media MCP for Meta/Facebook, Google PMax/Demand Gen, TikTok, LinkedIn & Reddit — launch campaigns, manage brand catalogue, report ROAS/CTR.",
-  "version": "1.0.1",
+  "description": "Run paid ads with Omneky from Claude: weekly ad reviews, tired creative refreshes, brand setup, launches, budgets and ROAS reporting across Meta, Google Ads, TikTok, LinkedIn, Reddit, Pinterest, X Ads and OpenAI Ads.",
+  "version": "1.1.0",
   "author": {
     "name": "Omneky",
     "email": "support@omneky.com",
@@ -11,6 +11,11 @@
   "homepage": "https://www.omneky.com",
   "repository": "https://github.com/omneky-org/cursor-plugins-public",
   "license": "MIT",
+  "icon": "./assets/logo.svg",
+  "documentationUrl": "https://www.omneky.com/mcp",
+  "supportUrl": "https://www.omneky.com/support",
+  "privacyPolicyUrl": "https://www.omneky.com/privacy-policy",
+  "termsOfServiceUrl": "https://www.omneky.com/terms",
   "keywords": [
     "omneky",
     "paid media",
@@ -32,7 +37,14 @@
     "product catalogue",
     "mcp",
     "analytics",
-    "claude code"
+    "claude code",
+    "weekly ad review",
+    "creative fatigue",
+    "ad refresh",
+    "pinterest ads",
+    "x ads",
+    "openai ads",
+    "brand setup"
   ],
   "mcpServers": "./.mcp.json"
 }

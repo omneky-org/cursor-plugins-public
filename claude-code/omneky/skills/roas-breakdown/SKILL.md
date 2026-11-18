@@ -1,6 +1,6 @@
 ---
 name: roas-breakdown
-description: Use this when the user asks which paid-media ads, campaigns, or channels are winning or losing — ROAS, CTR, CPC, CPA, spend, impressions, conversions, day-by-day trends, WoW/MoM movers, or a creative/campaign/channel leaderboard.
+description: Use this when the user asks which paid-media ads, campaigns, or channels are winning or losing: ROAS, CTR, CPC, CPA, spend, impressions, conversions, day-by-day trends, WoW/MoM movers, or a creative/campaign/channel leaderboard.
 ---
 
 # ROAS / CTR / spend breakdown
@@ -20,32 +20,32 @@ User phrasing: ROAS, CTR, CPC, CPA, spend, impressions, conversions, which ads/c
 | List brands / is data imported / is a channel connected | `getting-started` |
 | Product catalogue | `product-catalogue` |
 | Generate a creative | `creative-referral` |
+| A full weekly review with proposed changes | `weekly-ad-review` |
+| Find and replace tired ads | `creative-refresh` |
 
 ## Tools
 
 | Question | Tool |
 | --- | --- |
-| Ranked breakdown / leaderboard (creative, campaign, channel, ad, …) | `get_performance_breakdown` (alias `get_dimension_summary`) |
+| Ranked breakdown / leaderboard (creative, campaign, channel, ad, …) | `get_performance_breakdown` |
 | Day-by-day time series / charts | `get_daily_metrics` |
-| What rose or fell vs the prior window | `get_performance_movers` (alias `get_trending`) |
-| Turn a human campaign/ad name into a filter value | `search_reporting_values` (alias `search_dimension_values`) |
+| What rose or fell vs the prior window | `get_performance_movers` |
+| Turn a human campaign/ad name into a filter value | `search_reporting_values` |
 | What to try next from historical performance | `get_recommendations` |
-| Current spend per channel | `get_channel_budget` |
-| Confirm imported data | `check_reporting_data_available` (alias `data_available`) |
-| Signed-in `user_id` | `get_current_user` |
+| Allocated daily budget per channel (not spend) | `get_channel_budget` |
+| Confirm imported data | `check_reporting_data_available` |
 
 ## Start here
 
-1. `get_current_user` — `user_id` for brand-scoped calls. Do not ask the user for a numeric user id.
-2. `list_brands` / `get_brand_summary` (alias `get_brand`) / `get_brand_details` — confirm which brand. Do not guess `brand_id`.
-3. `check_reporting_data_available` (alias `data_available`) — confirm the brand has imported data (and which dates/channels) before querying.
+1. `list_brands` / `get_brand` / `get_brand_details`: confirm which brand. Do not guess `brand_id`. The server reads the user from the signed-in session; never pass or ask for a user id.
+2. `check_reporting_data_available`: confirm the brand has imported data (and which dates/channels) before querying.
 
 ## Rules
 
-- Stay on these structured tools. There is no public SQL tool — do not invent `run_sql_query` or warehouse table names.
+- Stay on these structured tools. There is no public SQL tool, so do not invent `run_sql_query` or warehouse table names.
 - Do not invent score / lift endpoints. They are not on this surface.
-- `get_performance_breakdown` (alias `get_dimension_summary`) needs `user_id`, `date_range` (`["YYYY-MM-DD", "YYYY-MM-DD"]`), `dimension`, `results_per_page`, `sort_metric`, `sort_order`. Pass `filters` as `[]` when unscoped — never null, and never a redundant `{dimension: "brand"}` filter.
+- `get_performance_breakdown` needs `brand_id`, `date_range` (`["YYYY-MM-DD", "YYYY-MM-DD"]`), `dimension`, `results_per_page`, `sort_metric`, `sort_order`. Pass `filters` as `[]` when unscoped, never null, and never a redundant `{dimension: "brand"}` filter.
 - Common dimensions: `creative`, `campaign`, `channel`, `ad`, `ad_group`. Sort by `ROAS`, `CLICK_THROUGH_RATE`, or `SPEND` as asked.
-- `get_performance_movers` (alias `get_trending`) needs `brand_id`, `user_id`, `dimension`, `metric`, `end_date`. Optional `period_days` (default 7).
+- `get_performance_movers` needs `brand_id`, `dimension`, `metric`, `end_date`. Optional `period_days` (default 7).
 - `selected_conversion_metric_value` is the brand's configured goal and **varies per channel**. Never sum it across channels; group by channel or use a named metric (`purchases`, `clicks`, …).
-- If `check_reporting_data_available` (alias `data_available`) says there is no import yet, say so instead of fabricating a table.
+- If `check_reporting_data_available` says there is no import yet, say so instead of fabricating a table.
