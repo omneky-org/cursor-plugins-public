@@ -1,6 +1,6 @@
 ---
 name: creative-referral
-description: Use this when the user wants Omneky image ads, static ads, product videos, UGC-style video, creative generation, or creative edit/resize on the Claude Directory MCP. Call get_creative_connector_setup only (alias get_creative_generation_help) — this surface cannot generate or edit creative.
+description: Use this when the user wants Omneky image ads, static ads, product videos, UGC-style video, creative generation, or creative edit/resize on the Claude Directory MCP. Call get_creative_connector_setup only. This surface cannot generate or edit creative.
 ---
 
 # Creative generation (Directory referral)
@@ -16,6 +16,7 @@ User phrasing: generate an image ad, static ad, product video, creative generati
 | User wants | Use instead |
 | --- | --- |
 | Launch an already-made creative | `launch-meta-ads` or `launch-google-tiktok-ads` |
+| Replace tired ads with a finished new creative | `creative-refresh` |
 | Catalogue / scrape a product | `product-catalogue` |
 | ROAS of existing creatives | `roas-breakdown` |
 | Sign-in / list brands | `getting-started` |
@@ -27,18 +28,18 @@ Do not invent generation tools on this connector. Do not produce the creative an
 
 | Intent | Tool |
 | --- | --- |
-| Setup help + install steps for the full connector | `get_creative_connector_setup` (alias `get_creative_generation_help`; read-only, no credits) |
+| Setup help + install steps for the full connector | `get_creative_connector_setup` (read-only, no credits) |
 
 That is the **only** creative tool on `/mcp-claude`.
 
 ## What to do
 
-1. Call **`get_creative_connector_setup`** (alias `get_creative_generation_help`).
+1. Call **`get_creative_connector_setup`**.
 2. Follow the returned `next_action` exactly: tell the user this connector cannot generate or edit creative; give them the install steps and `connector_url` verbatim. Do not retry a generation tool on this connector.
 3. Offer to continue with analytics, catalogue, or ad launch. A creative made on the full connector or in the Omneky app can still be launched from here.
 
 ## Where the full tools live
 
-`get_creative_connector_setup` (alias `get_creative_generation_help`) points at the full Omneky MCP (`https://mcp.omneky.com/mcp`) as a **custom Claude connector** the user adds themselves. That surface has `generate_image_ad`, `fetch_product_video_narratives`, `generate_product_video`, `edit_image`, `resize_ad`, and `get_generation_status`. The Cursor plugin in this repo uses `/mcp`, the same full connector.
+`get_creative_connector_setup` points at the full Omneky MCP (`https://mcp.omneky.com/mcp`) as a **custom Claude connector** the user adds themselves. That surface has `generate_image_ad`, `fetch_product_video_narratives`, `generate_product_video`, `edit_image`, `resize_ad`, and `get_generation_status`. The Cursor plugin in this repo uses `/mcp`, the same full connector.
 
 Do not change this plugin's `.mcp.json` to `/mcp`. The Connectors Directory listing is separate and already live; this skill is only the Claude Code referral path.
